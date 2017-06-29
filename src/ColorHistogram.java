@@ -77,7 +77,7 @@ public class ColorHistogram {
     public boolean setImage(File img, int binwidth){
         try {
             source = ImageIO.read(img);
-            int[][] allresults = new int[cellcount*cellcount][(256*256*256)/binwidth+1];
+            int[][] allresults = new int[cellcount*cellcount][(256*256*256)/binwidth+1 ];
             split(); //update cell array
             int rgb;
             int bin;
