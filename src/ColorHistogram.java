@@ -10,39 +10,39 @@ public class ColorHistogram {
     private BufferedImage source;
     private BufferedImage cells[];
     private int cellcount;
-    private int binwidth;
+    private int bincount;
     private int[][] allhistograms;
 
 
-    public ColorHistogram(File img,  int cellcount, int binwidth) {
+    public ColorHistogram(File img,  int cellcount, int bincount) {
         this.cellcount = cellcount;
-        this.binwidth = binwidth;
+        this.bincount = bincount;
         try {
             source = ImageIO.read(img);
             split(); //update cell array
-            calculate(cellcount, binwidth);
+            calculate(cellcount, bincount);
         }  catch (IOException e) {
 
         }
     }
 
 
-    public int[][] calculate(int cellcount, int binwidth){
-        this.binwidth = binwidth;
+    public int[][] calculate(int cellcount, int bincount){
+        this.bincount = bincount;
         this.cellcount = cellcount;
 
-        allhistograms =  new int[cellcount*cellcount][(256*256*256)/binwidth+1 ];
+        allhistograms =  new int[cellcount*cellcount][(256*256*256)/bincount+1 ];
             int rgb;
             int bin;
             int c = 0;
             for (BufferedImage cell: cells) {
-                int[] result = new int[(256 * 256 * 256) / binwidth + 1];
+                int[] result = new int[(256 * 256 * 256) / bincount + 1];
                 for (int i = 0; i < result.length; i++) result[i] = 0;
                 for (int x = 0; x < cell.getWidth(); x++) {
                     for (int y = 0; y < cell.getHeight(); y++) {
                         rgb = cell.getRGB(x, y);
                         bin = 65536 * ((rgb & 0x0000ff00) >> 8) + 256 * ((rgb & 0x0000ff00) >> 8) + (rgb & 0x000000ff);
-                        result[bin / binwidth]++;
+                        result[bin / bincount]++;
                     }
                 }
                 allhistograms[c] = result;
@@ -65,8 +65,5 @@ public class ColorHistogram {
     public int[][] getResults(){
         return allhistograms;
     }
-
-
-
 
 }
