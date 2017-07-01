@@ -15,11 +15,11 @@ public class GalleryRenderer extends DefaultListCellRenderer {
     Map<String, ImageIcon> map;
     Map<String, String> pathlookup;
     public GalleryRenderer(File[] paths){
-        font = new Font("helvitica", Font.BOLD, 12);
+        font = new Font("helvetica", Font.BOLD, 12);
         generateMap(paths);
     }
 
-    private void generateMap(File[] files){
+    public void generateMap(File[] files){
         map = new HashMap<>();
         pathlookup = new HashMap<>();
         int iconwidth = 50;

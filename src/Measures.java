@@ -1,7 +1,7 @@
 import org.apache.commons.math3.linear.RealMatrix;
 import java.util.stream.DoubleStream;
 
-public class Comparator {
+public class Measures {
 
 
     public static double euclid(ColorHistogram a, ColorHistogram b, int mode){
@@ -64,7 +64,7 @@ public class Comparator {
             for (int channel = 0; channel < 3; channel++){
                 double[] pV = u.operate(acells[cell][channel]); //pV
                 double[] qV = u.operate(bcells[cell][channel]); //qV
-                cellresults[cell] = weighted_euclid_inner(pV, qV, weights,10);
+                cellresults[cell] = weighted_euclid_inner(pV, qV, weights,1);
             }
         }
         return DoubleStream.of(cellresults).average().getAsDouble();
