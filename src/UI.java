@@ -76,11 +76,12 @@ public class UI {
 
         File[] files = new File("data/hedgehog").listFiles();
         int bincount =50;
+        QFWrapper qf = new QFWrapper(bincount);
         for (int i= 0; i<files.length-1;i++){
             ColorHistogram c1 = new ColorHistogram(files[i], 1,bincount);
             ColorHistogram c2 = new ColorHistogram(files[i+1], 1, bincount);
            System.out.println(Comparator.euclid(c1,c2,0));
-            System.out.println(Comparator.quadraticform(c1,c2, Util.createHumanPerceptionSimilarityMatrix(bincount)));
+            System.out.println(Comparator.quadraticform(c1,c2, qf));
             System.out.println("-----");
             //c.getResults() returns a 2D dim. first dim -> different cells, 2nd dim -> color bins
         }
