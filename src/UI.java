@@ -115,7 +115,7 @@ public class UI {
             //System.out.println("-----");
             //c.getResults() returns a 2D dim. first dim -> different cells, 2nd dim -> color bins
         }
-        Collections.sort(score, (o1, o2) -> o2.getScore().compareTo(o1.getScore()));
+        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
         ScoreItem[] scorearr = new ScoreItem[score.size()];
         scorearr = score.toArray(scorearr);
         File[] allfiles = new File[score.size()];

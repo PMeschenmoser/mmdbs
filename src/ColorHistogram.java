@@ -44,7 +44,7 @@ public class ColorHistogram {
                 for (int x = 0; x < cell.getWidth(); x++) {
                     for (int y = 0; y < cell.getHeight(); y++) {
                         rgb = cell.getRGB(x, y);
-                        r[((rgb & 0x0000ff00) >> 8)/bincount]++;
+                        r[((rgb & 0x00ff0000) >> 16)/bincount]++;
                         g[((rgb & 0x0000ff00) >> 8)/bincount]++;
                         b[(rgb & 0x000000ff)/ bincount]++;
                         allhistograms[c][0] = r;
