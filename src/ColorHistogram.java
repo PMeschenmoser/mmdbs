@@ -11,7 +11,7 @@ public class ColorHistogram {
     private BufferedImage cells[];
     private int cellcount;
     private int bincount;
-    private int[][][] allhistograms;
+    private double[][][] allhistograms; //double instead of int due to Commons Math RealMatrices
 
 
     public ColorHistogram(File img,  int cellcount, int bincount) {
@@ -27,17 +27,17 @@ public class ColorHistogram {
     }
 
 
-    public int[][][] calculate(int cellcount, int bincount){
+    public double[][][] calculate(int cellcount, int bincount){
         this.bincount = bincount;
         this.cellcount = cellcount;
 
-        allhistograms =  new int[cellcount*cellcount][3][256];
+        allhistograms =  new double[cellcount*cellcount][3][bincount];
             int rgb;
             int c = 0;
             for (BufferedImage cell: cells) {
-                int[] r = new int[256];
-                int[] g = new int[256];
-                int[] b = new int[256];
+                double[] r = new double[bincount];
+                double[] g;
+                double[] b;
                 for (int i = 0; i < r.length; i++) r[i] = 0;
                 g = r;
                 b = r;
@@ -69,7 +69,7 @@ public class ColorHistogram {
         }
     }
 
-    public int[][][] getResults(){
+    public double[][][] getResults(){
         return allhistograms;
     }
 

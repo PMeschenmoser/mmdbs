@@ -47,9 +47,10 @@ public class Util {
             }
         }
 
+        /*
         for (double[] ds : similarityMatrix) {
             System.out.println(Arrays.toString(ds));
-        }
+        }*/
 
         return similarityMatrix;
     }
