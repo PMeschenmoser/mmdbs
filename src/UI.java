@@ -74,8 +74,11 @@ public class UI {
         frame.setSize(700,500);
         frame.setVisible(true);
 
-        for (File img: new File("data/hedgehog").listFiles()){
-            ColorHistogram c = new ColorHistogram(img, 2,2);
+        File[] files = new File("data/hedgehog").listFiles();
+        for (int i= 0; i<files.length-1;i++){
+            ColorHistogram c1 = new ColorHistogram(files[i], 1,2);
+            ColorHistogram c2 = new ColorHistogram(files[i+1], 1,2);
+            System.out.println(Comparator.euclid(c1,c2,0));
             //c.getResults() returns a 2D dim. first dim -> different cells, 2nd dim -> color bins
         }
     }
