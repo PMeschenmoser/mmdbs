@@ -143,4 +143,27 @@ public class Util {
                 .sqrt(Math.pow(lab1[0] - lab2[0], 2) + Math.pow(lab1[1] - lab2[1], 2) + Math.pow(lab1[2] - lab2[2], 2));
     }
 
+    /**
+     * Uses the console to print out a histogram for an array
+     *
+     * @param array
+     *            one dimensional array
+     */
+    public static void printHistogram(int[] array){
+
+        int max = 0;
+        for(int i=0; i<array.length; i++){
+            if(array[i] > max) max = array[i];
+        }
+        System.out.println("----------------------------------------"); //40
+        for(int i=0; i<array.length; i++){
+            double stars = ((double)array[i] / (double)max) * 40;
+            for(int j=0; j<40; j++){
+                if(j<stars) System.out.print("*");
+                else System.out.print(" ");
+            }
+            System.out.println(" " + array[i]);
+        }
+        System.out.println("----------------------------------------"); //40
+    }
 }
