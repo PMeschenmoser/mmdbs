@@ -14,9 +14,8 @@ public class GalleryRenderer extends DefaultListCellRenderer {
     Font font;
     Map<String, ImageIcon> map;
     Map<String, String> pathlookup;
-    public GalleryRenderer(File[] paths){
+    public GalleryRenderer(){
         font = new Font("helvetica", Font.BOLD, 12);
-        generateMap(paths);
     }
 
     public void generateMap(File[] files){
