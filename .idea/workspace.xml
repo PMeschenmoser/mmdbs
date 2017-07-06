@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81bd5d18-0a19-4c13-bbff-11513f307001" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Vis/LinePlot.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Vistest.form" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Vistest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ColorHistogram.java" afterPath="$PROJECT_DIR$/src/ColorHistogram.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GalleryRenderer.java" afterPath="$PROJECT_DIR$/src/GalleryRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ScoreItem.java" afterPath="$PROJECT_DIR$/src/ScoreItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI.form" afterPath="$PROJECT_DIR$/src/UI.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI.java" afterPath="$PROJECT_DIR$/src/UI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -72,8 +64,8 @@
       <file leaf-file-name="ColorHistogram.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ColorHistogram.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="850">
+              <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -203,9 +195,9 @@
         <option value="$PROJECT_DIR$/src/ScoreItem.java" />
         <option value="$PROJECT_DIR$/src/UI.form" />
         <option value="$PROJECT_DIR$/src/GalleryRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ColorHistogram.java" />
         <option value="$PROJECT_DIR$/src/Vis/LinePlot.java" />
         <option value="$PROJECT_DIR$/src/UI.java" />
+        <option value="$PROJECT_DIR$/src/ColorHistogram.java" />
       </list>
     </option>
   </component>
@@ -889,7 +881,7 @@
       <workItem from="1498853356520" duration="7510000" />
       <workItem from="1498916123065" duration="12173000" />
       <workItem from="1499293203210" duration="3281000" />
-      <workItem from="1499297366519" duration="12350000" />
+      <workItem from="1499297366519" duration="13896000" />
     </task>
     <task id="LOCAL-00001" summary="color lookup">
       <created>1498655314457</created>
@@ -930,7 +922,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35314000" />
+    <option name="totallyTimeSpent" value="36860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="772" extended-state="0" />
@@ -1011,8 +1003,8 @@
           <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#2472#2473#0" expanded="false" />
-            <element signature="e#2508#2509#0" expanded="false" />
+            <element signature="e#2491#2492#0" expanded="false" />
+            <element signature="e#2527#2528#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1082,8 +1074,8 @@
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#2472#2473#0" expanded="false" />
-            <element signature="e#2508#2509#0" expanded="false" />
+            <element signature="e#2491#2492#0" expanded="false" />
+            <element signature="e#2527#2528#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1279,8 +1271,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ColorHistogram.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="850">
+          <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
           <folding />
         </state>
       </provider>

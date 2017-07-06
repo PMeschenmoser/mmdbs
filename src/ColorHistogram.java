@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by user on 28.06.2017.
@@ -30,22 +31,20 @@ public class ColorHistogram {
     public double[][][] calculate(int cellcount, int bincount){
         this.bincount = bincount;
         this.cellcount = cellcount;
-
+        double[] empty = new double[bincount];
+        Arrays.fill(empty, 0);
         allhistograms =  new double[cellcount*cellcount][3][bincount];
             int rgb;
             int c = 0;
             for (BufferedImage cell: cells) {
-                double[] r = new double[bincount];
-                double[] g;
-                double[] b;
-                for (int i = 0; i < r.length; i++) r[i] = 0;
-                g = r;
-                b = r;
+                double[] r = empty.clone();
+                double[] g = empty.clone();
+                double[] b = empty.clone();
+
                 for (int x = 0; x < cell.getWidth(); x++) {
                     for (int y = 0; y < cell.getHeight(); y++) {
                         rgb = cell.getRGB(x, y);
                         int binwidth = (int) Math.floor(256 /bincount);
-
                         r[Math.min(((rgb & 0x00ff0000) >> 16)/binwidth,bincount-1)]++;
                         g[Math.min(((rgb & 0x0000ff00) >> 8)/binwidth, bincount-1)]++;
                         b[Math.min((rgb & 0x000000ff)/binwidth, bincount-1)]++;
@@ -54,7 +53,6 @@ public class ColorHistogram {
                         allhistograms[c][2] = b;
                     }
                 }
-
                 c++;
             }
             return allhistograms;
