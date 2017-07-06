@@ -8,8 +8,8 @@ public class ScoreItem {
     private Double value;
     private ColorHistogram histogram;
 
-    public ScoreItem(File f, Double value, ColorHistogram histogram){
-        this.f = f;
+    public ScoreItem(ColorHistogram histogram,Double value){
+
         this.value = value;
         this.histogram = histogram;
     }
@@ -19,7 +19,7 @@ public class ScoreItem {
     }
 
     public File getFile(){
-        return f;
+        return histogram.getFile();
     }
 
     public ColorHistogram getHistogram(){

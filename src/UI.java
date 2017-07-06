@@ -35,10 +35,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by HP on 30.06.2017.
@@ -151,9 +148,10 @@ public class UI {
         QFWrapper qf = new QFWrapper(bincount);
         ColorHistogram in = new ColorHistogram(selectedin, 1,bincount);
         Serializer.serialize(in);
-        ArrayList<ScoreItem> score = new ArrayList<>();
+        //ArrayList<ScoreItem> score = new ArrayList<>();
 
         ArrayList<ColorHistogram> toSerialize = new ArrayList<>();
+        ColorHistogram[] candidates = new ColorHistogram[files.length];
         for (int i= 0; i<files.length;i++){
             ColorHistogram c;
             String ser = Serializer.getPathSerialized(files[i], cellcount, bincount);
@@ -169,22 +167,17 @@ public class UI {
                 c = new ColorHistogram(files[i], cellcount, bincount);
                 toSerialize.add(c);
             }
+            candidates[i] = c;
+        }
+        ArrayList<ScoreItem> score = new Calculator().run(in, candidates,5);
 
-            score.add(new ScoreItem(files[i], Measures.euclid(in,c,0), c));
-            //System.out.println(Measures.quadraticform(in,c, qf));
-            //System.out.println("-----");
-            //c.getResults() returns a 2D dim. first dim -> different cells, 2nd dim -> color bins
-        }
-        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
-        ScoreItem[] scorearr = new ScoreItem[score.size()];
-        scorearr = score.toArray(scorearr);
-        File[] allfiles = new File[score.size()];
+       Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
+
         listmodel.removeAllElements();
-        for (int i= 0; i<scorearr.length; i++){
-            allfiles[i] = scorearr[i].getFile();
-            listmodel.addElement(allfiles[i].getName());
+        for (ScoreItem s : score){
+            listmodel.addElement(s.getFile().getName());
         }
-        renderer.generateMap(scorearr);
+        renderer.generateMap(score);
 
         //serialize new images:
         Iterator<ColorHistogram> iter = toSerialize.listIterator();
