@@ -6,9 +6,12 @@ import java.io.File;
 public class ScoreItem {
     private File f;
     private Double value;
-    public ScoreItem(File f, Double value){
+    private ColorHistogram histogram;
+
+    public ScoreItem(File f, Double value, ColorHistogram histogram){
         this.f = f;
         this.value = value;
+        this.histogram = histogram;
     }
 
     public Double getScore(){
@@ -17,5 +20,9 @@ public class ScoreItem {
 
     public File getFile(){
         return f;
+    }
+
+    public ColorHistogram getHistogram(){
+        return histogram;
     }
 }

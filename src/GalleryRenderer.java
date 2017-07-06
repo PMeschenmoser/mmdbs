@@ -13,22 +13,24 @@ import java.util.Map;
 public class GalleryRenderer extends DefaultListCellRenderer {
     Font font;
     Map<String, ImageIcon> map;
-    Map<String, String> pathlookup;
+    Map<String, ScoreItem> pathlookup;
+
     public GalleryRenderer(){
         font = new Font("helvetica", Font.BOLD, 12);
     }
 
-    public void generateMap(File[] files){
+    public void generateMap(ScoreItem[] items){
         map = new HashMap<>();
         pathlookup = new HashMap<>();
         int iconwidth = 50;
         double ratio;
-        for (File img: files){
+        for (ScoreItem item: items){
+            File img = item.getFile();
             try {
                 BufferedImage right = ImageIO.read(img);
                 ratio = right.getHeight()*1.0/right.getWidth()*1.0;
                 map.put(img.getName(), new ImageIcon(right.getScaledInstance(iconwidth, (int) (iconwidth*ratio),  Image.SCALE_SMOOTH)));
-                pathlookup.put(img.getName(), img.getAbsolutePath());
+                pathlookup.put(img.getName(), item);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -36,10 +38,9 @@ public class GalleryRenderer extends DefaultListCellRenderer {
         }
     }
 
-    public String getSelectedPath(String key){
-        return pathlookup.get(key);
+    public ScoreItem getScoreItem(String key){
+        return  pathlookup.get(key);
     }
-
 
     @Override
     public Component getListCellRendererComponent(

@@ -1,8 +1,26 @@
 
 
+import Vis.LinePlot;
+import de.erichseifert.gral.data.DataSource;
+import de.erichseifert.gral.data.DataTable;
+import de.erichseifert.gral.data.EnumeratedData;
+import de.erichseifert.gral.data.statistics.Histogram1D;
+import de.erichseifert.gral.data.statistics.Statistics;
+import de.erichseifert.gral.graphics.Insets2D;
+import de.erichseifert.gral.graphics.Orientation;
+import de.erichseifert.gral.plots.BarPlot;
+import de.erichseifert.gral.plots.XYPlot;
+import de.erichseifert.gral.plots.lines.DefaultLineRenderer2D;
+import de.erichseifert.gral.plots.lines.LineRenderer;
+import de.erichseifert.gral.plots.points.PointRenderer;
+import de.erichseifert.gral.ui.InteractivePanel;
+import de.erichseifert.gral.util.MathUtils;
+
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -12,12 +30,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by HP on 30.06.2017.
@@ -29,16 +49,19 @@ public class UI {
     private JLabel imgright;
     private JScrollPane scroll;
     private JList list;
+    private JTabbedPane tabbedPane1;
     private JLabel labelout;
     private JLabel labelin;
+    private JPanel tabOriginal;
+
     private int imgwidth;
     private static GalleryRenderer renderer;
     private static File selectedin;
-    private static File searchfolder;
     private final JFileChooser fileChooser;
     private static DefaultListModel<String> listmodel;
     private  UISettings settings;
 
+    private LinePlot[] plots;
 
     public UI() {
         settings = new UISettings();
@@ -49,8 +72,8 @@ public class UI {
                 "Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
 
-        setImage(new File("gui/input.png"), true, false);
-        setImage(new File("gui/output.png"), false, false );
+        setImageCanvas(new File("gui/input.png"), true, false);
+        setImageCanvas(new File("gui/output.png"), false, false );
 
         //drop listener:
         new  FileDrop( imgleft, files -> {
@@ -58,7 +81,7 @@ public class UI {
                 String type = mimetype.split("/")[0];
                 if(type.equals("image")){
                     selectedin = files[0];
-                    setImage(selectedin, true, true );
+                    setImageCanvas(selectedin, true, true );
                     calculateScore();
                 }
             });
@@ -76,10 +99,11 @@ public class UI {
             list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             list.setCellRenderer(renderer);
             list.addListSelectionListener(e -> {
-                String p = renderer.getSelectedPath(list.getSelectedValue().toString());
-                setImage(new File(p), false, true);
+                ScoreItem s = renderer.getScoreItem(list.getSelectedValue().toString());
+                setImageCanvas(s.getFile(), false, true);
+                updatePlots(s.getHistogram(), false);
             });
-            scroll.setPreferredSize(new Dimension(300, 100));
+            scroll.setPreferredSize(new Dimension(300, 50));
         JMenuBar menuBar = new JMenuBar();
         JMenu inputmenu = new JMenu("Input");
         JMenuItem importmenu = new JMenuItem("Select Query Image.");
@@ -97,6 +121,13 @@ public class UI {
         menuBar.add(settingsmenu);
 
         frame.setJMenuBar(menuBar);
+        plots = new LinePlot[3];
+        plots[0] = new LinePlot();
+        tabbedPane1.add(plots[0].getPanel(), "R");
+        plots[1] = new LinePlot();
+        tabbedPane1.add(plots[1].getPanel(), "G");
+        plots[2] = new LinePlot();
+        tabbedPane1.add(plots[2].getPanel(), "B");
     }
 
     public static void main(String[] args) {
@@ -107,6 +138,7 @@ public class UI {
         frame.setSize(700,500);
         frame.setResizable(false);
         frame.setVisible(true);
+
     }
 
     private  void calculateScore(){
@@ -118,7 +150,7 @@ public class UI {
 
         for (int i= 0; i<files.length;i++){
             ColorHistogram c = new ColorHistogram(files[i], 1, bincount);
-            score.add(new ScoreItem(files[i], Measures.euclid(in,c,0)));
+            score.add(new ScoreItem(files[i], Measures.euclid(in,c,0), c));
             //System.out.println(Measures.quadraticform(in,c, qf));
             //System.out.println("-----");
             //c.getResults() returns a 2D dim. first dim -> different cells, 2nd dim -> color bins
@@ -132,11 +164,17 @@ public class UI {
             allfiles[i] = scorearr[i].getFile();
             listmodel.addElement(allfiles[i].getName());
         }
-        renderer.generateMap(allfiles);
+        renderer.generateMap(scorearr);
     }
 
+    private void updatePlots(ColorHistogram c, boolean isQueryImage){
+        double[][] histograms = c.getMergedChannelHistograms();
+        for (int channel= 0; channel < histograms.length; channel++){
+            plots[channel].setHistogramData(histograms[channel], isQueryImage);
+        }
+    }
 
-    private void setImage(File f, boolean left, boolean updateLabel){
+    private void setImageCanvas(File f, boolean left, boolean updateLabel){
         try {
             BufferedImage img = ImageIO.read(f);
             double ratio = img.getHeight()*1.0/img.getWidth()*1.0;
@@ -157,7 +195,7 @@ public class UI {
         int value = fileChooser.showOpenDialog(mainpanel);
         if (value == JFileChooser.APPROVE_OPTION) {
             selectedin = fileChooser.getSelectedFile();
-            setImage(selectedin, true, true);
+            setImageCanvas(selectedin, true, true);
             calculateScore();
         }
     }
