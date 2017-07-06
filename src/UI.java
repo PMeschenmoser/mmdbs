@@ -174,6 +174,13 @@ public class UI {
             ColorHistogram c = scorearr[i].getHistogram();
             if (!Serializer.wasSerialized(c))Serializer.serialize(c);
         }
+
+        //update plots:
+        double[][] channeled = in.getMergedChannelHistograms();
+        for (int p =0; p< plots.length; p++){
+            plots[p].setHistogramData(channeled[p],true);
+        }
+
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){
