@@ -54,7 +54,7 @@ public class UI {
     private JLabel labelin;
     private JPanel tabOriginal;
 
-    private int imgwidth;
+    private int imgheight;
     private static GalleryRenderer renderer;
     private static File selectedin;
     private final JFileChooser fileChooser;
@@ -65,7 +65,7 @@ public class UI {
 
     public UI() {
         settings = new UISettings();
-        imgwidth = 250;
+        imgheight = 230;
         listmodel = new DefaultListModel<>();
         fileChooser = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter(
@@ -96,14 +96,16 @@ public class UI {
 
             renderer = new GalleryRenderer();
             list.setModel(listmodel);
-            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+           // list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             list.setCellRenderer(renderer);
             list.addListSelectionListener(e -> {
-                ScoreItem s = renderer.getScoreItem(list.getSelectedValue().toString());
-                setImageCanvas(s.getFile(), false, true);
-                updatePlots(s.getHistogram(), false);
+                if (list.getSelectedValue() != null) {
+                    ScoreItem s = renderer.getScoreItem(list.getSelectedValue().toString());
+                    setImageCanvas(s.getFile(), false, true);
+                    updatePlots(s.getHistogram(), false);
+                }
             });
-            scroll.setPreferredSize(new Dimension(300, 50));
+           scroll.setPreferredSize(new Dimension(500, 50));
         JMenuBar menuBar = new JMenuBar();
         JMenu inputmenu = new JMenu("Input");
         JMenuItem importmenu = new JMenuItem("Select Query Image.");
@@ -122,11 +124,11 @@ public class UI {
 
         frame.setJMenuBar(menuBar);
         plots = new LinePlot[3];
-        plots[0] = new LinePlot();
+        plots[0] = new LinePlot(Color.RED);
         tabbedPane1.add(plots[0].getPanel(), "R");
-        plots[1] = new LinePlot();
+        plots[1] = new LinePlot(Color.GREEN);
         tabbedPane1.add(plots[1].getPanel(), "G");
-        plots[2] = new LinePlot();
+        plots[2] = new LinePlot(Color.BLUE);
         tabbedPane1.add(plots[2].getPanel(), "B");
     }
 
@@ -135,7 +137,7 @@ public class UI {
         frame.setContentPane(new UI().mainpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(700,500);
+        frame.setSize(800,500);
         frame.setResizable(false);
         frame.setVisible(true);
 
@@ -146,6 +148,7 @@ public class UI {
         int bincount =50;
         QFWrapper qf = new QFWrapper(bincount);
         ColorHistogram in = new ColorHistogram(selectedin, 1,bincount);
+        Serializer.serialize(in);
         ArrayList<ScoreItem> score = new ArrayList<>();
 
         for (int i= 0; i<files.length;i++){
@@ -165,6 +168,12 @@ public class UI {
             listmodel.addElement(allfiles[i].getName());
         }
         renderer.generateMap(scorearr);
+
+        //serialize:
+        for (int i=0; i<scorearr.length; i++){
+            ColorHistogram c = scorearr[i].getHistogram();
+            if (!Serializer.wasSerialized(c))Serializer.serialize(c);
+        }
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){
@@ -177,14 +186,14 @@ public class UI {
     private void setImageCanvas(File f, boolean left, boolean updateLabel){
         try {
             BufferedImage img = ImageIO.read(f);
-            double ratio = img.getHeight()*1.0/img.getWidth()*1.0;
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(imgwidth, (int) (imgwidth*ratio),  Image.SCALE_SMOOTH));
+            double ratio =img.getWidth() *1.0/img.getHeight()*1.0;
+            ImageIcon icon = new ImageIcon(img.getScaledInstance((int) (imgheight*ratio), imgheight,  Image.SCALE_SMOOTH));
             if (left){
                 imgleft.setIcon(icon);
-                if (updateLabel) labelin.setText("Query Image: " + f.getName());
+                if (updateLabel) imgleft.setText("Query Image: " + f.getName());
             } else {
                 imgright.setIcon(icon);
-                if (updateLabel) labelout.setText("Selected: " + f.getName());
+                if (updateLabel) imgright.setText("Selected: " + f.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -199,4 +208,6 @@ public class UI {
             calculateScore();
         }
     }
+
+
 }

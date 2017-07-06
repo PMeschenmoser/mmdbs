@@ -19,15 +19,16 @@ public class LinePlot {
     private LineRenderer queryRenderer;
     private LineRenderer outputRenderer;
 
-    public LinePlot(){
+    public LinePlot(Color outputColor){
         queryHistogram = new DataTable(Integer.class, Double.class);
         outputHistogram = new DataTable(Integer.class, Double.class);
         plot = new XYPlot(queryHistogram, outputHistogram);
-        Color color1 = new Color(0.0f, 0.3f, 1.0f);
+
+        Color black = new Color(0.0f, 0.0f, 0.0f);
         queryRenderer = new DefaultLineRenderer2D();
-        queryRenderer.setColor(color1);
+        queryRenderer.setColor(black);
         outputRenderer = new DefaultLineRenderer2D();
-        outputRenderer.setColor(color1);
+        outputRenderer.setColor(outputColor);
         panel = new InteractivePanel(plot);
     }
 
@@ -42,11 +43,13 @@ public class LinePlot {
             queryHistogram = tmp;
             plot.add(queryHistogram);
             plot.setLineRenderers(queryHistogram, queryRenderer);
+            plot.getPointRenderers(queryHistogram).get(0).setShape(null);
         } else {
             plot.remove(outputHistogram);
             outputHistogram = tmp;
             plot.add(outputHistogram);
             plot.setLineRenderers(outputHistogram, outputRenderer);
+            plot.getPointRenderers(outputHistogram).get(0).setShape(null);
         }
     }
 

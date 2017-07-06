@@ -2,33 +2,35 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Created by user on 28.06.2017.
  */
-public class ColorHistogram {
-    private BufferedImage source;
-    private BufferedImage cells[];
+public class ColorHistogram implements Serializable{
+    private File input;
+    //private BufferedImage source;
+    //private BufferedImage cells[];
     private int cellcount;
     private int bincount;
     private double[][][] allhistograms; //double instead of int due to Commons Math RealMatrices
 
 
     public ColorHistogram(File img,  int cellcount, int bincount) {
+        input = img;
         this.cellcount = cellcount;
         this.bincount = bincount;
         try {
-            source = ImageIO.read(img);
-            split(); //update cell array
-            calculate(cellcount, bincount);
+            BufferedImage source = ImageIO.read(input);
+            BufferedImage[] splits = split(source); //update cell array
+            calculate(splits, cellcount, bincount);
         }  catch (IOException e) {
 
         }
     }
 
-
-    public double[][][] calculate(int cellcount, int bincount){
+    public double[][][] calculate(BufferedImage[] cells, int cellcount, int bincount){
         this.bincount = bincount;
         this.cellcount = cellcount;
         double[] empty = new double[bincount];
@@ -58,8 +60,8 @@ public class ColorHistogram {
             return allhistograms;
     }
 
-    private void split(){
-        cells = new BufferedImage[cellcount*cellcount];
+    private BufferedImage[] split(BufferedImage source){
+        BufferedImage[] cells = new BufferedImage[cellcount*cellcount];
         int cellwidth = source.getWidth()/cellcount;
         int cellheight = source.getHeight()/cellcount;
         for (int x = 0; x<cellcount; x++ ){
@@ -67,6 +69,7 @@ public class ColorHistogram {
                 cells[x*cellcount+y] = source.getSubimage(x*cellwidth, y*cellheight, cellwidth, cellheight);
             }
         }
+        return cells;
     }
 
     public double[][][] getResults(){
@@ -86,6 +89,17 @@ public class ColorHistogram {
             }
         }
         return merged;
+    }
+
+    public File getFile(){
+        return input;
+    }
+
+    public int getBinCount(){
+        return bincount;
+    }
+    public int getCellCount(){
+        return cellcount;
     }
 
 }
