@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -145,14 +146,30 @@ public class UI {
 
     private  void calculateScore(){
         File[] files = settings.getSearchFiles();
-        int bincount =50;
+        int bincount = 50;
+        int cellcount = 1;
         QFWrapper qf = new QFWrapper(bincount);
         ColorHistogram in = new ColorHistogram(selectedin, 1,bincount);
         Serializer.serialize(in);
         ArrayList<ScoreItem> score = new ArrayList<>();
 
+        ArrayList<ColorHistogram> toSerialize = new ArrayList<>();
         for (int i= 0; i<files.length;i++){
-            ColorHistogram c = new ColorHistogram(files[i], 1, bincount);
+            ColorHistogram c;
+            String ser = Serializer.getPathSerialized(files[i], cellcount, bincount);
+            if (ser.length() > 0){
+                //this color histogram was already serialized.
+                c = Serializer.deserialize(ser);
+                if (c == null){
+                    //deserializing failed, compute histogram again...
+                    c = new ColorHistogram(files[i], cellcount, bincount);
+                    toSerialize.add(c);
+                }
+            } else {
+                c = new ColorHistogram(files[i], cellcount, bincount);
+                toSerialize.add(c);
+            }
+
             score.add(new ScoreItem(files[i], Measures.euclid(in,c,0), c));
             //System.out.println(Measures.quadraticform(in,c, qf));
             //System.out.println("-----");
@@ -169,10 +186,10 @@ public class UI {
         }
         renderer.generateMap(scorearr);
 
-        //serialize:
-        for (int i=0; i<scorearr.length; i++){
-            ColorHistogram c = scorearr[i].getHistogram();
-            if (!Serializer.wasSerialized(c))Serializer.serialize(c);
+        //serialize new images:
+        Iterator<ColorHistogram> iter = toSerialize.listIterator();
+        while (iter.hasNext()){
+            Serializer.serialize(iter.next());
         }
 
         //update plots:
