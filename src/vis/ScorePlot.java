@@ -27,7 +27,7 @@ public class ScorePlot {
     public void setValues(java.util.List<ScoreItem> score ){
         if (d!= null) plot.remove(d);
         d = new DataTable(Integer.class, Double.class, String.class);
-        int x= 0;
+        int x= 1;
         for (ScoreItem s: score){
             d.add(x, s.getScore(), s.getFile().getName());
             x++;

@@ -29,6 +29,7 @@ public class ScoreView {
 
     public void setScore(List<ScoreItem> score ){
         plot.setValues(score);
+        frame.repaint();
     }
 
     public void show(){

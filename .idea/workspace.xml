@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="81bd5d18-0a19-4c13-bbff-11513f307001" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI.java" afterPath="$PROJECT_DIR$/src/UI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/GalleryRenderer.java" afterPath="$PROJECT_DIR$/src/gui/GalleryRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/ScoreView.java" afterPath="$PROJECT_DIR$/src/gui/ScoreView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/Settings.form" afterPath="$PROJECT_DIR$/src/gui/Settings.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/Settings.java" afterPath="$PROJECT_DIR$/src/gui/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/search/Calculator.java" afterPath="$PROJECT_DIR$/src/search/Calculator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vis/HistogramPlot.java" afterPath="$PROJECT_DIR$/src/vis/HistogramPlot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vis/ScorePlot.java" afterPath="$PROJECT_DIR$/src/vis/ScorePlot.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
+            <state relative-caret-position="-330">
               <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -51,9 +47,10 @@
       <file leaf-file-name="ScorePlot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vis/ScorePlot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-620">
-              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state relative-caret-position="275">
+              <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#2180#2181#0" expanded="true" />
                 <element signature="e#2208#2209#0" expanded="true" />
               </folding>
@@ -61,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistogramPlot.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HistogramPlot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/vis/HistogramPlot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="43" />
+            <state relative-caret-position="-93">
+              <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,14 +73,12 @@
       <file leaf-file-name="ScoreView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/ScoreView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state relative-caret-position="255">
+              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#685#686#0" expanded="true" />
-                <element signature="e#722#723#0" expanded="true" />
-                <element signature="e#747#748#0" expanded="true" />
-                <element signature="e#785#786#0" expanded="true" />
+                <element signature="e#772#773#0" expanded="true" />
+                <element signature="e#810#811#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -170,7 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/gui.form" />
         <option value="$PROJECT_DIR$/src/gui.java" />
         <option value="$PROJECT_DIR$/src/GUI.java" />
         <option value="$PROJECT_DIR$/src/GUI.form" />
@@ -217,10 +211,11 @@
         <option value="$PROJECT_DIR$/src/gui/Settings.form" />
         <option value="$PROJECT_DIR$/src/search/Calculator.java" />
         <option value="$PROJECT_DIR$/src/gui/GalleryRenderer.java" />
-        <option value="$PROJECT_DIR$/src/vis/ScorePlot.java" />
-        <option value="$PROJECT_DIR$/src/gui/ScoreView.java" />
         <option value="$PROJECT_DIR$/src/gui/Settings.java" />
         <option value="$PROJECT_DIR$/src/UI.java" />
+        <option value="$PROJECT_DIR$/src/vis/ScorePlot.java" />
+        <option value="$PROJECT_DIR$/src/gui/ScoreView.java" />
+        <option value="$PROJECT_DIR$/src/vis/HistogramPlot.java" />
       </list>
     </option>
   </component>
@@ -991,7 +986,7 @@
       <workItem from="1499297366519" duration="21115000" />
       <workItem from="1499349758184" duration="5652000" />
       <workItem from="1499421403565" duration="11275000" />
-      <workItem from="1499445823243" duration="10015000" />
+      <workItem from="1499445823243" duration="10432000" />
     </task>
     <task id="LOCAL-00001" summary="color lookup">
       <created>1498655314457</created>
@@ -1032,7 +1027,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71021000" />
+    <option name="totallyTimeSpent" value="71438000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -1283,16 +1278,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vis/HistogramPlot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/Settings.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
@@ -1318,27 +1303,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vis/ScorePlot.java">
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-620">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="e#2180#2181#0" expanded="true" />
-            <element signature="e#2208#2209#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/ScoreView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+        <state relative-caret-position="-330">
+          <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#685#686#0" expanded="true" />
-            <element signature="e#722#723#0" expanded="true" />
-            <element signature="e#747#748#0" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1354,10 +1324,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UI.java">
+    <entry file="file://$PROJECT_DIR$/src/vis/ScorePlot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
+        <state relative-caret-position="275">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2180#2181#0" expanded="true" />
+            <element signature="e#2208#2209#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/ScoreView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vis/HistogramPlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-93">
+          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

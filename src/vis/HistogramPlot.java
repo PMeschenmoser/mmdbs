@@ -39,7 +39,7 @@ public class HistogramPlot {
         }
         DataSeries series = new DataSeries(label, table);
         if (isQueryObject){
-            if (outputHistogram != null) plot.remove(queryHistogram);
+            clearQueryLine();
             queryHistogram = series;
             plot.add(queryHistogram);
             plot.setLineRenderers(queryHistogram, queryRenderer);
@@ -51,6 +51,10 @@ public class HistogramPlot {
             plot.setLineRenderers(outputHistogram, outputRenderer);
             plot.getPointRenderers(outputHistogram).get(0).setShape(null);
         }
+    }
+    public void clearQueryLine(){
+        if (queryHistogram != null) plot.remove(queryHistogram);
+        queryHistogram = null;
     }
 
     public void clearOutputLine(){
