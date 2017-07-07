@@ -1,20 +1,7 @@
 
 
 import Vis.LinePlot;
-import de.erichseifert.gral.data.DataSource;
-import de.erichseifert.gral.data.DataTable;
-import de.erichseifert.gral.data.EnumeratedData;
-import de.erichseifert.gral.data.statistics.Histogram1D;
-import de.erichseifert.gral.data.statistics.Statistics;
-import de.erichseifert.gral.graphics.Insets2D;
-import de.erichseifert.gral.graphics.Orientation;
-import de.erichseifert.gral.plots.BarPlot;
-import de.erichseifert.gral.plots.XYPlot;
-import de.erichseifert.gral.plots.lines.DefaultLineRenderer2D;
-import de.erichseifert.gral.plots.lines.LineRenderer;
-import de.erichseifert.gral.plots.points.PointRenderer;
-import de.erichseifert.gral.ui.InteractivePanel;
-import de.erichseifert.gral.util.MathUtils;
+
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
@@ -58,11 +45,13 @@ public class UI {
     private final JFileChooser fileChooser;
     private static DefaultListModel<String> listmodel;
     private  UISettings settings;
+    private Calculator calculator;
 
     private LinePlot[] plots;
 
     public UI() {
         settings = new UISettings();
+        calculator = new Calculator(settings);
         imgheight = 230;
         listmodel = new DefaultListModel<>();
         fileChooser = new JFileChooser();
@@ -80,7 +69,7 @@ public class UI {
                 if(type.equals("image")){
                     selectedin = files[0];
                     setImageCanvas(selectedin, true, true );
-                    calculateScore();
+                    query();
                 }
             });
         //import via select dialog
@@ -141,15 +130,27 @@ public class UI {
 
     }
 
-    private  void calculateScore(){
+    private  void query(){
         File[] files = settings.getSearchFiles();
         int bincount = 50;
         int cellcount = 1;
-        QFWrapper qf = new QFWrapper(bincount);
-        ColorHistogram in = new ColorHistogram(selectedin, 1,bincount);
-        Serializer.serialize(in);
-        //ArrayList<ScoreItem> score = new ArrayList<>();
+        QFWrapper qf = new QFWrapper(settings.getBinCount());
 
+        /*
+            Feature extraction/loading for query image:
+         */
+        ColorHistogram in;
+        String serQuery = Serializer.getPathSerialized(selectedin, cellcount, bincount);
+        if (serQuery.length() > 0){
+            in = Serializer.deserialize(serQuery);
+        } else {
+            in = new ColorHistogram(selectedin, settings.getCellCount(),settings.getBinCount());
+            Serializer.serialize(in);
+        }
+
+        /*
+            Feature extraction/loading for search images:
+         */
         ArrayList<ColorHistogram> toSerialize = new ArrayList<>();
         ColorHistogram[] candidates = new ColorHistogram[files.length];
         for (int i= 0; i<files.length;i++){
@@ -169,8 +170,11 @@ public class UI {
             }
             candidates[i] = c;
         }
-        ArrayList<ScoreItem> score = new Calculator().run(in, candidates,5);
 
+        /*
+            Calculate sim
+         */
+        ArrayList<ScoreItem> score = calculator.run(in, candidates);
        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
 
         listmodel.removeAllElements();
@@ -222,7 +226,7 @@ public class UI {
         if (value == JFileChooser.APPROVE_OPTION) {
             selectedin = fileChooser.getSelectedFile();
             setImageCanvas(selectedin, true, true);
-            calculateScore();
+            query();
         }
     }
 

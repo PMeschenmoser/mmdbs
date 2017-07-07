@@ -35,13 +35,15 @@ import java.util.concurrent.*;
 
 }
 public class Calculator {
+    private UISettings settings;
+    public Calculator(UISettings settings){
+        this.settings = settings;
+    }
 
-    public Calculator(){}
-
-    public ArrayList<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates, int nothreads){
+    public ArrayList<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
         ArrayList<ScoreItem> merged = new ArrayList<>();
-        int width = candidates.length/nothreads;
-        ExecutorService pool = Executors.newFixedThreadPool(nothreads); //parallel execution
+        int width = candidates.length/settings.getThreadCount();
+        ExecutorService pool = Executors.newFixedThreadPool(settings.getThreadCount()); //parallel execution
         try {
             for (int i=0; i<candidates.length; i+= width){
                 Future<ArrayList<ScoreItem>> s = pool.submit(new SearchThread(query,candidates, i, i+width));

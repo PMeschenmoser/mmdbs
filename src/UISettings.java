@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class UISettings {
     private JButton updatecurrent;
     private JLabel eigenvaluelabel;
     private JSpinner eigenvaluespinner;
+    private JLabel threadslabel;
+    private JSpinner threadsspinner;
     private JFileChooser pathChooser;
     private File defaultpath;
 
@@ -32,6 +36,16 @@ public class UISettings {
         pathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         pathChooser.setAcceptAllFileFilterUsed(false);
 
+        cellcountspinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
+        bincountspinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
+        eigenvaluespinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
+        threadsspinner.setModel(new SpinnerNumberModel(5, 1, 10, 1));
+        bincountspinner.addChangeListener(e -> {
+            double val = (double) bincountspinner.getValue();
+            eigenvaluespinner.setModel(new SpinnerNumberModel(val, 1, val, 1));
+        });
+        browsesearchpath.addActionListener(e -> setPathByChooser());
+
         frame = new JFrame("All Settings");
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -39,7 +53,7 @@ public class UISettings {
         frame.setVisible(false);
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
-        browsesearchpath.addActionListener(e -> setPathByChooser());
+
     }
 
     public static void toggleVisibility(){
@@ -73,5 +87,20 @@ public class UISettings {
                 listfiles(file, in);
             }
         }
+    }
+
+    public int getCellCount(){
+        return  (int) cellcountspinner.getValue();
+    }
+
+    public int getBinCount(){
+        return  (int) bincountspinner.getValue();
+    }
+    public int getEigenvalueCount(){
+        return  (int) cellcountspinner.getValue();
+    }
+
+    public int getThreadCount(){
+        return  (int) threadsspinner.getValue();
     }
 }
