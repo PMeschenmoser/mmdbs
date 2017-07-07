@@ -6,18 +6,11 @@ import Vis.LinePlot;
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -132,9 +125,9 @@ public class UI {
 
     private  void query(){
         File[] files = settings.getSearchFiles();
-        int bincount = 50;
-        int cellcount = 1;
-        QFWrapper qf = new QFWrapper(settings.getBinCount());
+        int cellcount = settings.getCellCount();
+        int bincount = settings.getBinCount();
+
 
         /*
             Feature extraction/loading for query image:
@@ -144,7 +137,7 @@ public class UI {
         if (serQuery.length() > 0){
             in = Serializer.deserialize(serQuery);
         } else {
-            in = new ColorHistogram(selectedin, settings.getCellCount(),settings.getBinCount());
+            in = new ColorHistogram(selectedin, cellcount, bincount);
             Serializer.serialize(in);
         }
 
@@ -172,7 +165,7 @@ public class UI {
         }
 
         /*
-            Calculate sim
+            Calculate similarity
          */
         ArrayList<ScoreItem> score = calculator.run(in, candidates);
        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));

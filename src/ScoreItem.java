@@ -8,7 +8,7 @@ public class ScoreItem {
     private Double value;
     private ColorHistogram histogram;
 
-    public ScoreItem(ColorHistogram histogram,Double value){
+    public ScoreItem(ColorHistogram histogram, Double value){
 
         this.value = value;
         this.histogram = histogram;

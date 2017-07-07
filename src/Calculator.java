@@ -1,19 +1,17 @@
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.*;
 
 /**
  * Created by Phil on 06.07.2017.
  */
- class SearchThread implements Callable
+ class EuclidThread implements Callable
 {
     private ColorHistogram query;
     private ColorHistogram[] candidates;
     private int start;
     private int end;
 
-    public SearchThread(ColorHistogram query, ColorHistogram[] candidates, int start, int end){
+    public EuclidThread(ColorHistogram query, ColorHistogram[] candidates, int start, int end){
         this.query = query;
         this.candidates = candidates;
         this.start = start;
@@ -32,12 +30,41 @@ import java.util.concurrent.*;
         }
         return localresults;
     }
+}
+class QFThread implements Callable
+{
+    private ColorHistogram query;
+    private ColorHistogram[] candidates;
+    private int start;
+    private int end;
+    private QFWrapper qf;
 
+    public QFThread(ColorHistogram query, ColorHistogram[] candidates, int start, int end, QFWrapper qf){
+        this.query = query;
+        this.candidates = candidates;
+        this.start = start;
+        this.end = end;
+        this.qf = qf;
+    }
+
+    @Override
+    public Object call() throws Exception {
+        ArrayList<ScoreItem> localresults = new ArrayList<>();
+        for (int i = start; i<Math.min(end, candidates.length); i++)
+        {
+            Double dist = Measures.quadraticform(query, candidates[i], qf);
+            if (dist != null){
+                localresults.add(new ScoreItem(candidates[i], Measures.euclid(query,candidates[i],0)));
+            }
+        }
+        return localresults;
+    }
 }
 public class Calculator {
     private UISettings settings;
     public Calculator(UISettings settings){
         this.settings = settings;
+        QFWrapper qf = new QFWrapper(settings.getBinCount());
     }
 
     public ArrayList<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
@@ -45,10 +72,20 @@ public class Calculator {
         int width = candidates.length/settings.getThreadCount();
         ExecutorService pool = Executors.newFixedThreadPool(settings.getThreadCount()); //parallel execution
         try {
-            for (int i=0; i<candidates.length; i+= width){
-                Future<ArrayList<ScoreItem>> s = pool.submit(new SearchThread(query,candidates, i, i+width));
-                merged.addAll(s.get());
-            }
+            if (settings.getMetric().equals("Euclidean")){
+                for (int i=0; i<candidates.length; i+= width){
+                    Future<ArrayList<ScoreItem>> s = pool.submit(new EuclidThread(query,candidates, i, i+width));
+                    merged.addAll(s.get());
+                }
+            } else { //for now: quadratic form
+                QFWrapper qf = new QFWrapper(settings.getBinCount());
+                System.out.println("RUN QF");
+                for (int i=0; i<candidates.length; i+= width){
+                    Future<ArrayList<ScoreItem>> s = pool.submit(new QFThread(query,candidates, i, i+width, qf));
+                    merged.addAll(s.get());
+                }
+            } //insert earth mover here!
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

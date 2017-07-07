@@ -103,4 +103,8 @@ public class UISettings {
     public int getThreadCount(){
         return  (int) threadsspinner.getValue();
     }
+
+    public String getMetric(){
+        return (String) metriccombobox.getSelectedItem();
+    }
 }
