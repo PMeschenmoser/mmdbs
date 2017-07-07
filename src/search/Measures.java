@@ -1,3 +1,6 @@
+package search;
+
+import feature.ColorHistogram;
 import org.apache.commons.math3.linear.RealMatrix;
 import java.util.stream.DoubleStream;
 

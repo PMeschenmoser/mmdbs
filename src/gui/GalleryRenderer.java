@@ -1,3 +1,7 @@
+package gui;
+
+import search.ScoreItem;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

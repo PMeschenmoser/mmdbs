@@ -1,3 +1,5 @@
+package gui;
+
 import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by user on 03.07.2017.
  */
-public class UISettings {
+public class Settings {
     private static JFrame frame;
     private JPanel panel1;
     private  JTextField searchpathtext;
@@ -27,7 +29,7 @@ public class UISettings {
     private JFileChooser pathChooser;
     private File defaultpath;
 
-    public UISettings() {
+    public Settings() {
         defaultpath = new File("data/hedgehog/");
 
         pathChooser = new JFileChooser();

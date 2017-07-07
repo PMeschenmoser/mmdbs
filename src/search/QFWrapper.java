@@ -1,4 +1,6 @@
-import org.apache.commons.math3.linear.EigenDecomposition;
+package search;
+
+import misc.Util;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
@@ -15,8 +17,8 @@ public class QFWrapper {
     public QFWrapper(int bincount){
         A = MatrixUtils.createRealMatrix(Util.createHumanPerceptionSimilarityMatrix(bincount));
         SingularValueDecomposition svd = new SingularValueDecomposition(A);
-        eigenvalues = (new EigenDecomposition(A)).getRealEigenvalues();
-         u = svd.getU();
+        eigenvalues = svd.getSingularValues();
+        u = svd.getU();
     }
 
     public RealMatrix getA(){

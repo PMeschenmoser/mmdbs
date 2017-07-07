@@ -1,7 +1,11 @@
-
-
-import Vis.LinePlot;
-
+import feature.ColorHistogram;
+import gui.FileDrop;
+import gui.GalleryRenderer;
+import gui.Settings;
+import misc.Serializer;
+import search.Calculator;
+import search.ScoreItem;
+import vis.LinePlot;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
@@ -13,9 +17,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Created by HP on 30.06.2017.
@@ -37,13 +42,13 @@ public class UI {
     private static File selectedin;
     private final JFileChooser fileChooser;
     private static DefaultListModel<String> listmodel;
-    private  UISettings settings;
+    private Settings settings;
     private Calculator calculator;
 
     private LinePlot[] plots;
 
     public UI() {
-        settings = new UISettings();
+        settings = new gui.Settings();
         calculator = new Calculator(settings);
         imgheight = 230;
         listmodel = new DefaultListModel<>();
@@ -56,7 +61,7 @@ public class UI {
         setImageCanvas(new File("gui/output.png"), false, false );
 
         //drop listener:
-        new  FileDrop( imgleft, files -> {
+        new FileDrop( imgleft, files -> {
                 String mimetype= new MimetypesFileTypeMap().getContentType(files[0]);
                 String type = mimetype.split("/")[0];
                 if(type.equals("image")){

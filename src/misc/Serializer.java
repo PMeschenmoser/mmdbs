@@ -1,3 +1,7 @@
+package misc;
+
+import feature.ColorHistogram;
+
 import java.io.*;
 
 /**

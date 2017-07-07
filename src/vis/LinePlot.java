@@ -1,4 +1,4 @@
-package Vis;
+package vis;
 
 import de.erichseifert.gral.data.DataSeries;
 import de.erichseifert.gral.data.DataTable;
@@ -22,10 +22,12 @@ public class LinePlot {
     public LinePlot(Color outputColor){
         plot = new XYPlot();
         plot.setLegendVisible(true);
+
         queryRenderer = new DefaultLineRenderer2D();
         queryRenderer.setColor(new Color(0.0f, 0.0f, 0.0f));
         outputRenderer = new DefaultLineRenderer2D();
         outputRenderer.setColor(outputColor);
+
         panel = new InteractivePanel(plot);
     }
 

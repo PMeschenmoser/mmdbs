@@ -1,3 +1,7 @@
+package search;
+
+import feature.ColorHistogram;
+
 import java.io.File;
 
 /**

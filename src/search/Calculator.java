@@ -1,3 +1,8 @@
+package search;
+
+import feature.ColorHistogram;
+import gui.Settings;
+
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
@@ -59,8 +64,8 @@ class EuclidThread implements Callable
 }
 
 public class Calculator {
-    private UISettings settings;
-    public Calculator(UISettings settings){
+    private Settings settings;
+    public Calculator(Settings settings){
         this.settings = settings;
         QFWrapper qf = new QFWrapper(settings.getBinCount());
     }
