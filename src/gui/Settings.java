@@ -99,7 +99,7 @@ public class Settings {
     public int getBinCount(){
         return  (int) bincountspinner.getValue();
     }
-    public int getEigenvalueCount(){
+    public int getMaxEigen(){
         return  (int) cellcountspinner.getValue();
     }
 

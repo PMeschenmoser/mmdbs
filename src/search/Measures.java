@@ -67,7 +67,7 @@ public class Measures {
             for (int channel = 0; channel < 3; channel++){
                 double[] pV = u.operate(acells[cell][channel]); //pV
                 double[] qV = u.operate(bcells[cell][channel]); //qV
-                cellresults[cell] = weighted_euclid_inner(pV, qV, weights,1);
+                cellresults[cell] = weighted_euclid_inner(pV, qV, weights, wrapper.getMaxEigen());
             }
         }
         return DoubleStream.of(cellresults).average().getAsDouble();

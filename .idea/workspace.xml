@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="81bd5d18-0a19-4c13-bbff-11513f307001" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/ScoreView.java" afterPath="$PROJECT_DIR$/src/gui/ScoreView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vis/HistogramPlot.java" afterPath="$PROJECT_DIR$/src/vis/HistogramPlot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vis/ScorePlot.java" afterPath="$PROJECT_DIR$/src/vis/ScorePlot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/Settings.java" afterPath="$PROJECT_DIR$/src/gui/Settings.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/search/Calculator.java" afterPath="$PROJECT_DIR$/src/search/Calculator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/search/Measures.java" afterPath="$PROJECT_DIR$/src/search/Measures.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/search/QFWrapper.java" afterPath="$PROJECT_DIR$/src/search/QFWrapper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -37,13 +38,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UI.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UI.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ScorePlot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vis/ScorePlot.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -58,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistogramPlot.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HistogramPlot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vis/HistogramPlot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-93">
-              <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+            <state relative-caret-position="179">
+              <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,11 +81,35 @@
       <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
+            <state relative-caret-position="179">
+              <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
               <folding>
                 <element signature="e#2131#2132#0" expanded="true" />
                 <element signature="e#2169#2170#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Measures.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/search/Measures.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QFWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/search/QFWrapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#896#897#0" expanded="true" />
+                <element signature="e#927#928#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,20 +122,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScoreView.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/ScoreView.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Calculator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/search/Calculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+            <state relative-caret-position="-102">
+              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1930#1931#0" expanded="true" />
+                <element signature="e#1970#1971#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,19 +216,19 @@
         <option value="$PROJECT_DIR$/src/vis/LinePlot.java" />
         <option value="$PROJECT_DIR$/src/feature/ColorHistogram.java" />
         <option value="$PROJECT_DIR$/src/feature/GlobalEdgeHistogram.java" />
-        <option value="$PROJECT_DIR$/src/search/Measures.java" />
         <option value="$PROJECT_DIR$/src/gui/FileDrop.java" />
         <option value="$PROJECT_DIR$/src/misc/Util.java" />
-        <option value="$PROJECT_DIR$/src/search/QFWrapper.java" />
         <option value="$PROJECT_DIR$/src/gui/ScoreView.form" />
         <option value="$PROJECT_DIR$/src/gui/Settings.form" />
-        <option value="$PROJECT_DIR$/src/search/Calculator.java" />
         <option value="$PROJECT_DIR$/src/gui/GalleryRenderer.java" />
-        <option value="$PROJECT_DIR$/src/gui/Settings.java" />
         <option value="$PROJECT_DIR$/src/UI.java" />
         <option value="$PROJECT_DIR$/src/vis/ScorePlot.java" />
         <option value="$PROJECT_DIR$/src/gui/ScoreView.java" />
         <option value="$PROJECT_DIR$/src/vis/HistogramPlot.java" />
+        <option value="$PROJECT_DIR$/src/search/QFWrapper.java" />
+        <option value="$PROJECT_DIR$/src/gui/Settings.java" />
+        <option value="$PROJECT_DIR$/src/search/Calculator.java" />
+        <option value="$PROJECT_DIR$/src/search/Measures.java" />
       </list>
     </option>
   </component>
@@ -986,7 +999,7 @@
       <workItem from="1499297366519" duration="21115000" />
       <workItem from="1499349758184" duration="5652000" />
       <workItem from="1499421403565" duration="11275000" />
-      <workItem from="1499445823243" duration="10432000" />
+      <workItem from="1499445823243" duration="11553000" />
     </task>
     <task id="LOCAL-00001" summary="color lookup">
       <created>1498655314457</created>
@@ -1027,7 +1040,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71438000" />
+    <option name="totallyTimeSpent" value="72559000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -1234,16 +1247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/search/QFWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/misc/Serializer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1251,14 +1254,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/search/Measures.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1278,21 +1273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/Settings.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/search/Calculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GalleryRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-331">
@@ -1309,17 +1289,6 @@
           <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
-          <folding>
-            <element signature="e#2131#2132#0" expanded="true" />
-            <element signature="e#2169#2170#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1350,11 +1319,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vis/HistogramPlot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-93">
-          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+        <state relative-caret-position="179">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/Settings.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding>
+            <element signature="e#2131#2132#0" expanded="true" />
+            <element signature="e#2169#2170#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/search/Calculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1930#1931#0" expanded="true" />
+            <element signature="e#1970#1971#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/search/QFWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#896#897#0" expanded="true" />
+            <element signature="e#927#928#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/search/Measures.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

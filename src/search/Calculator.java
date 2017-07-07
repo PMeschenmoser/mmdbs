@@ -30,7 +30,7 @@ class QFThread implements Callable
         {
             Double dist = Measures.quadraticform(query, candidates[i], qf);
             if (dist != null){
-                localresults.add(new ScoreItem(candidates[i], Measures.euclid(query,candidates[i],0)));
+                localresults.add(new ScoreItem(candidates[i], dist));
             }
         }
         return localresults;
@@ -57,7 +57,7 @@ class EuclidThread implements Callable
         {
             Double dist = Measures.euclid(query,candidates[i],0);
             if (dist != null){
-                localresults.add(new ScoreItem(candidates[i], Measures.euclid(query,candidates[i],0)));
+                localresults.add(new ScoreItem(candidates[i], dist));
             }
         }
         return localresults;
@@ -68,7 +68,6 @@ public class Calculator {
     private Settings settings;
     public Calculator(Settings settings){
         this.settings = settings;
-        QFWrapper qf = new QFWrapper(settings.getBinCount());
     }
 
     public List<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
@@ -83,7 +82,7 @@ public class Calculator {
 
                 }
             } else { //for now: quadratic form
-                QFWrapper qf = new QFWrapper(settings.getBinCount());
+                QFWrapper qf = new QFWrapper(settings.getBinCount(), settings.getMaxEigen());
                 System.out.println("RUN QF");
                 for (int i=0; i<candidates.length; i+= width){
                     Future<List<ScoreItem>> s = pool.submit(new QFThread(query,candidates, i, i+width, qf));
