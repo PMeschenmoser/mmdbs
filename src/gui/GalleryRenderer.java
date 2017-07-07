@@ -31,8 +31,9 @@ public class GalleryRenderer extends DefaultListCellRenderer {
             try {
                 BufferedImage right = ImageIO.read(img);
                 ratio = right.getHeight()*1.0/right.getWidth()*1.0;
-                map.put(img.getName(), new ImageIcon(right.getScaledInstance(iconwidth, (int) (iconwidth*ratio),  Image.SCALE_SMOOTH)));
-                pathlookup.put(img.getName(), item);
+                String key = img.getParentFile().getName()+ "/" + img.getName();
+                map.put(key, new ImageIcon(right.getScaledInstance(iconwidth, (int) (iconwidth*ratio),  Image.SCALE_SMOOTH)));
+                pathlookup.put(key, item);
             } catch (IOException e) {
                 e.printStackTrace();
             }

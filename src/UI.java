@@ -81,7 +81,6 @@ public class UI {
 
             renderer = new GalleryRenderer();
             list.setModel(listmodel);
-           // list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             list.setCellRenderer(renderer);
             list.addListSelectionListener(e -> {
                 if (list.getSelectedValue() != null) {
@@ -178,7 +177,8 @@ public class UI {
 
         listmodel.removeAllElements();
         for (ScoreItem s : score){
-            listmodel.addElement(s.getFile().getName());
+            String key = s.getFile().getParentFile().getName()+ "/" + s.getFile().getName();
+            listmodel.addElement(key);
         }
         renderer.generateMap(score);
 

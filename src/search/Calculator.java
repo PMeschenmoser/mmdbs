@@ -79,7 +79,9 @@ public class Calculator {
                 for (int i=0; i<candidates.length; i+= width){
                     Future<ArrayList<ScoreItem>> s = pool.submit(new EuclidThread(query,candidates, i, i+width));
                     merged.addAll(s.get());
+
                 }
+                System.out.println(merged.size());
             } else { //for now: quadratic form
                 QFWrapper qf = new QFWrapper(settings.getBinCount());
                 System.out.println("RUN QF");
