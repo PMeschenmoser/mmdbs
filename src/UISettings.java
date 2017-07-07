@@ -9,8 +9,19 @@ public class UISettings {
     private static JFrame frame;
     private JPanel panel1;
     private  JTextField searchpathtext;
+    private JComboBox descriptorcombo;
     private JLabel searchpathlabel;
     private JButton browsesearchpath;
+    private JLabel descriptorlabel;
+    private JSpinner cellcountspinner;
+    private JLabel cellcountlabel;
+    private JLabel bincountlabel;
+    private JSpinner bincountspinner;
+    private JLabel metriclabel;
+    private JComboBox metriccombobox;
+    private JButton updatecurrent;
+    private JLabel eigenvaluelabel;
+    private JSpinner eigenvaluespinner;
     private JFileChooser pathChooser;
     private File defaultpath;
 
