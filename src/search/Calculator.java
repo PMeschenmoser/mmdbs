@@ -4,6 +4,7 @@ import feature.ColorHistogram;
 import gui.Settings;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 class QFThread implements Callable
@@ -51,7 +52,7 @@ class EuclidThread implements Callable
 
     @Override
     public Object call() throws Exception {
-        ArrayList<ScoreItem> localresults = new ArrayList<>();
+        List<ScoreItem> localresults = new ArrayList<>();
         for (int i = start; i<Math.min(end, candidates.length); i++)
         {
             Double dist = Measures.euclid(query,candidates[i],0);
@@ -70,23 +71,22 @@ public class Calculator {
         QFWrapper qf = new QFWrapper(settings.getBinCount());
     }
 
-    public ArrayList<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
-        ArrayList<ScoreItem> merged = new ArrayList<>();
+    public List<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
+        List<ScoreItem> merged = new ArrayList<>();
         int width = candidates.length/settings.getThreadCount();
         ExecutorService pool = Executors.newFixedThreadPool(settings.getThreadCount()); //parallel execution
         try {
             if (settings.getMetric().equals("Euclidean")){
                 for (int i=0; i<candidates.length; i+= width){
-                    Future<ArrayList<ScoreItem>> s = pool.submit(new EuclidThread(query,candidates, i, i+width));
+                    Future<List<ScoreItem>> s = pool.submit(new EuclidThread(query,candidates, i, i+width));
                     merged.addAll(s.get());
 
                 }
-                System.out.println(merged.size());
             } else { //for now: quadratic form
                 QFWrapper qf = new QFWrapper(settings.getBinCount());
                 System.out.println("RUN QF");
                 for (int i=0; i<candidates.length; i+= width){
-                    Future<ArrayList<ScoreItem>> s = pool.submit(new QFThread(query,candidates, i, i+width, qf));
+                    Future<List<ScoreItem>> s = pool.submit(new QFThread(query,candidates, i, i+width, qf));
                     merged.addAll(s.get());
                 }
             } //insert earth mover here!

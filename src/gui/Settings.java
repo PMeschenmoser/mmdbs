@@ -26,6 +26,8 @@ public class Settings {
     private JSpinner eigenvaluespinner;
     private JLabel threadslabel;
     private JSpinner threadsspinner;
+    private JLabel maxresultslabel;
+    private JSpinner maxresultsspinner;
     private JFileChooser pathChooser;
     private File defaultpath;
 
@@ -39,6 +41,7 @@ public class Settings {
         cellcountspinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
         bincountspinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
         eigenvaluespinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
+        maxresultsspinner.setModel(new SpinnerNumberModel(50, 1, 1000, 1));
         threadsspinner.setModel(new SpinnerNumberModel(5, 1, 10, 1));
         bincountspinner.addChangeListener(e -> {
             int val = (int) bincountspinner.getValue();
@@ -56,8 +59,8 @@ public class Settings {
 
     }
 
-    public static void toggleVisibility(){
-        frame.setVisible(!frame.isVisible());
+    public static void show(){
+        frame.setVisible(true);
     }
 
     private void setPathByChooser(){
@@ -103,6 +106,8 @@ public class Settings {
     public int getThreadCount(){
         return  (int) threadsspinner.getValue();
     }
+
+    public int getMaxResults(){ return (int) maxresultsspinner.getValue();}
 
     public String getMetric(){
         return (String) metriccombobox.getSelectedItem();

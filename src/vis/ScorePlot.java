@@ -8,9 +8,7 @@ import de.erichseifert.gral.plots.XYPlot;
 import de.erichseifert.gral.ui.InteractivePanel;
 import de.erichseifert.gral.util.GraphicsUtils;
 import search.ScoreItem;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by Phil on 07.07.2017.
@@ -26,7 +24,7 @@ public class ScorePlot {
         panel =  new InteractivePanel(plot);
     }
 
-    public void setValues(ArrayList<ScoreItem> score ){
+    public void setValues(java.util.List<ScoreItem> score ){
         if (d!= null) plot.remove(d);
         d = new DataTable(Integer.class, Double.class, String.class);
         int x= 0;

@@ -45,7 +45,7 @@ public class UI {
     private static File selectedin;
     private JFileChooser fileChooser;
     private static DefaultListModel<String> listmodel;
-    ArrayList<ScoreItem> score;
+    private java.util.List<ScoreItem> score;
     private Settings settings;
     private ScoreView scoreview;
 
@@ -111,13 +111,13 @@ public class UI {
 
         showscoreplot = new JMenuItem("Show Score Plot.");
         showscoreplot.setEnabled(false);
-        showscoreplot.addActionListener(e -> scoreview.toggleVisibility());
+        showscoreplot.addActionListener(e -> scoreview.show());
         outputmenu.add(showscoreplot);
 
         JMenu settingsmenu = new JMenu("Settings");
 
         JMenuItem allsettings = new JMenuItem("All...");
-        allsettings.addActionListener(e -> settings.toggleVisibility());
+        allsettings.addActionListener(e -> settings.show());
         settingsmenu.add(allsettings);
         menuBar.add(settingsmenu);
 
@@ -188,7 +188,8 @@ public class UI {
             Calculate similarity
          */
         score = calculator.run(in, candidates);
-       Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
+        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
+        score =  score.subList(0, Math.min(settings.getMaxResults(), score.size()));
 
         listmodel.removeAllElements();
         for (ScoreItem s : score){
@@ -206,7 +207,7 @@ public class UI {
 
         updatePlots(in, true);
         scoreview.setScore(score);
-        
+
         //after first search:
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,true);
         showscoreplot.setEnabled(true);

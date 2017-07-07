@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class GalleryRenderer extends DefaultListCellRenderer {
         font = new Font("helvetica", Font.BOLD, 12);
     }
 
-    public void generateMap(ArrayList<ScoreItem> items){
+    public void generateMap(java.util.List<ScoreItem> items){
         map = new HashMap<>();
         pathlookup = new HashMap<>();
         int iconwidth = 50;

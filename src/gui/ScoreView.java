@@ -4,7 +4,7 @@ import search.ScoreItem;
 import vis.ScorePlot;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Phil on 07.07.2017.
@@ -27,11 +27,11 @@ public class ScoreView {
         frame.getContentPane().add(plot.getPanel());
     }
 
-    public void setScore(ArrayList<ScoreItem> score ){
+    public void setScore(List<ScoreItem> score ){
         plot.setValues(score);
     }
 
-    public void toggleVisibility(){
-        frame.setVisible(!frame.isVisible());
+    public void show(){
+        frame.setVisible(true);
     }
 }
