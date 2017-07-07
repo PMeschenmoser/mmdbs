@@ -110,6 +110,7 @@ public class UI {
         tabbedPane1.add(plots[1].getPanel(), "G");
         plots[2] = new LinePlot(Color.BLUE);
         tabbedPane1.add(plots[2].getPanel(), "B");
+        for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,false);
     }
 
     public static void main(String[] args) {
@@ -182,19 +183,19 @@ public class UI {
             Serializer.serialize(iter.next());
         }
 
-        //update plots:
-        double[][] channeled = in.getMergedChannelHistograms();
-        for (int p =0; p< plots.length; p++){
-            plots[p].setHistogramData(channeled[p],true);
-        }
 
+        updatePlots(in, true);
+        //after first search:
+        for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,true);
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){
         double[][] histograms = c.getMergedChannelHistograms();
         for (int channel= 0; channel < histograms.length; channel++){
-            plots[channel].setHistogramData(histograms[channel], isQueryImage);
+            plots[channel].setHistogramData(histograms[channel],  c.getFile().getName(),isQueryImage);
+            if (isQueryImage) plots[channel].clearOutputLine();
         }
+        tabbedPane1.repaint();
     }
 
     private void setImageCanvas(File f, boolean left, boolean updateLabel){

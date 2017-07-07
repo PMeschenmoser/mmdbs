@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -41,7 +39,7 @@ public class UISettings {
         eigenvaluespinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
         threadsspinner.setModel(new SpinnerNumberModel(5, 1, 10, 1));
         bincountspinner.addChangeListener(e -> {
-            double val = (double) bincountspinner.getValue();
+            int val = (int) bincountspinner.getValue();
             eigenvaluespinner.setModel(new SpinnerNumberModel(val, 1, val, 1));
         });
         browsesearchpath.addActionListener(e -> setPathByChooser());

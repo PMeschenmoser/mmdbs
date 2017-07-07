@@ -1,36 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-/**
- * Created by Phil on 06.07.2017.
- */
- class EuclidThread implements Callable
-{
-    private ColorHistogram query;
-    private ColorHistogram[] candidates;
-    private int start;
-    private int end;
-
-    public EuclidThread(ColorHistogram query, ColorHistogram[] candidates, int start, int end){
-        this.query = query;
-        this.candidates = candidates;
-        this.start = start;
-        this.end = end;
-    }
-
-    @Override
-    public Object call() throws Exception {
-        ArrayList<ScoreItem> localresults = new ArrayList<>();
-        for (int i = start; i<Math.min(end, candidates.length); i++)
-        {
-            Double dist = Measures.euclid(query,candidates[i],0);
-            if (dist != null){
-                localresults.add(new ScoreItem(candidates[i], Measures.euclid(query,candidates[i],0)));
-            }
-        }
-        return localresults;
-    }
-}
 class QFThread implements Callable
 {
     private ColorHistogram query;
@@ -60,6 +30,34 @@ class QFThread implements Callable
         return localresults;
     }
 }
+class EuclidThread implements Callable
+{
+    private ColorHistogram query;
+    private ColorHistogram[] candidates;
+    private int start;
+    private int end;
+
+    public EuclidThread(ColorHistogram query, ColorHistogram[] candidates, int start, int end){
+        this.query = query;
+        this.candidates = candidates;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public Object call() throws Exception {
+        ArrayList<ScoreItem> localresults = new ArrayList<>();
+        for (int i = start; i<Math.min(end, candidates.length); i++)
+        {
+            Double dist = Measures.euclid(query,candidates[i],0);
+            if (dist != null){
+                localresults.add(new ScoreItem(candidates[i], Measures.euclid(query,candidates[i],0)));
+            }
+        }
+        return localresults;
+    }
+}
+
 public class Calculator {
     private UISettings settings;
     public Calculator(UISettings settings){
