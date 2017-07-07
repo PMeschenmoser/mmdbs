@@ -1,11 +1,12 @@
 import feature.ColorHistogram;
 import gui.FileDrop;
 import gui.GalleryRenderer;
+import gui.ScoreView;
 import gui.Settings;
 import misc.Serializer;
 import search.Calculator;
 import search.ScoreItem;
-import vis.LinePlot;
+import vis.HistogramPlot;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
@@ -36,20 +37,28 @@ public class UI {
     private JLabel labelout;
     private JLabel labelin;
     private JPanel tabOriginal;
+    private JMenuItem showscoreplot;
+
 
     private int imgheight;
     private static GalleryRenderer renderer;
     private static File selectedin;
-    private final JFileChooser fileChooser;
+    private JFileChooser fileChooser;
     private static DefaultListModel<String> listmodel;
+    ArrayList<ScoreItem> score;
     private Settings settings;
+    private ScoreView scoreview;
+
+
     private Calculator calculator;
 
-    private LinePlot[] plots;
+    private HistogramPlot[] plots;
 
     public UI() {
         settings = new gui.Settings();
         calculator = new Calculator(settings);
+        scoreview = new ScoreView();
+
         imgheight = 230;
         listmodel = new DefaultListModel<>();
         fileChooser = new JFileChooser();
@@ -99,6 +108,12 @@ public class UI {
 
         JMenu outputmenu = new JMenu("Output");
         menuBar.add(outputmenu);
+
+        showscoreplot = new JMenuItem("Show Score Plot.");
+        showscoreplot.setEnabled(false);
+        showscoreplot.addActionListener(e -> scoreview.toggleVisibility());
+        outputmenu.add(showscoreplot);
+
         JMenu settingsmenu = new JMenu("Settings");
 
         JMenuItem allsettings = new JMenuItem("All...");
@@ -107,12 +122,12 @@ public class UI {
         menuBar.add(settingsmenu);
 
         frame.setJMenuBar(menuBar);
-        plots = new LinePlot[3];
-        plots[0] = new LinePlot(Color.RED);
+        plots = new HistogramPlot[3];
+        plots[0] = new HistogramPlot(Color.RED);
         tabbedPane1.add(plots[0].getPanel(), "R");
-        plots[1] = new LinePlot(Color.GREEN);
+        plots[1] = new HistogramPlot(Color.GREEN);
         tabbedPane1.add(plots[1].getPanel(), "G");
-        plots[2] = new LinePlot(Color.BLUE);
+        plots[2] = new HistogramPlot(Color.BLUE);
         tabbedPane1.add(plots[2].getPanel(), "B");
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,false);
     }
@@ -172,7 +187,7 @@ public class UI {
         /*
             Calculate similarity
          */
-        ArrayList<ScoreItem> score = calculator.run(in, candidates);
+        score = calculator.run(in, candidates);
        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
 
         listmodel.removeAllElements();
@@ -190,8 +205,11 @@ public class UI {
 
 
         updatePlots(in, true);
+        scoreview.setScore(score);
+        
         //after first search:
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,true);
+        showscoreplot.setEnabled(true);
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){

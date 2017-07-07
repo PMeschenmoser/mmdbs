@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * Created by Phil on 06.07.2017.
  */
-public class LinePlot {
+public class HistogramPlot {
     private InteractivePanel panel;
     private XYPlot plot;
     private DataSeries queryHistogram;
@@ -19,7 +19,7 @@ public class LinePlot {
     private LineRenderer queryRenderer;
     private LineRenderer outputRenderer;
 
-    public LinePlot(Color outputColor){
+    public HistogramPlot(Color outputColor){
         plot = new XYPlot();
         plot.setLegendVisible(true);
 
