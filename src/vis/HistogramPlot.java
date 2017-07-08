@@ -2,6 +2,8 @@ package vis;
 
 import de.erichseifert.gral.data.DataSeries;
 import de.erichseifert.gral.data.DataTable;
+import de.erichseifert.gral.graphics.Insets2D;
+import de.erichseifert.gral.graphics.Label;
 import de.erichseifert.gral.plots.XYPlot;
 import de.erichseifert.gral.plots.lines.DefaultLineRenderer2D;
 import de.erichseifert.gral.plots.lines.LineRenderer;
@@ -22,7 +24,11 @@ public class HistogramPlot {
     public HistogramPlot(Color outputColor){
         plot = new XYPlot();
         plot.setLegendVisible(true);
-
+        plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("Bins"));
+        plot.getAxis(XYPlot.AXIS_X).setAutoscaled(true);
+        plot.getAxis(XYPlot.AXIS_Y).setAutoscaled(true);
+        plot.setInsets(new Insets2D.Double(10.0, 10.0, 10.0, 10.0));
+        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Abs. Freq."));
         queryRenderer = new DefaultLineRenderer2D();
         queryRenderer.setColor(new Color(0.0f, 0.0f, 0.0f));
         outputRenderer = new DefaultLineRenderer2D();

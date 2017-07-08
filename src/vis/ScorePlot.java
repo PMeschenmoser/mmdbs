@@ -20,24 +20,33 @@ public class ScorePlot {
 
     public ScorePlot() {
         plot = new BarPlot();
+        plot.getAxis(XYPlot.AXIS_X).setAutoscaled(true);
+        plot.getAxis(XYPlot.AXIS_Y).setAutoscaled(true);
+
         d = new DataTable(Integer.class, Double.class);
         panel =  new InteractivePanel(plot);
+        panel.setPannable(true);
+        panel.setZoomable(false);
     }
 
     public void setValues(java.util.List<ScoreItem> score ){
         if (d!= null) plot.remove(d);
+
         d = new DataTable(Integer.class, Double.class, String.class);
         int x= 1;
+        double max = 0;
         for (ScoreItem s: score){
+
             d.add(x, s.getScore(), s.getFile().getName());
+            if (max < s.getScore()) max = s.getScore();
             x++;
         }
-        plot.setInsets(new Insets2D.Double(40.0, 40.0, 40.0, 40.0));
+        plot.setInsets(new Insets2D.Double(40.0, 80.0, 40.0, 40.0));
 
         plot.add(d);
 
         BarPlot.BarRenderer pointRenderer = (BarPlot.BarRenderer) plot.getPointRenderers(d).get(0);
-    pointRenderer.setValueRotation(90);
+        pointRenderer.setValueRotation(90);
 
         pointRenderer.setBorderStroke(new BasicStroke(3f));
         pointRenderer.setValueVisible(true);
@@ -58,6 +67,8 @@ public class ScorePlot {
                         new Color[] { GraphicsUtils.deriveBrighter(COLOR1), COLOR1 }
                 )
         );
+        plot.getAxis(XYPlot.AXIS_Y).setMax(max); //because autoscale seems to fail at large differences (c.f. euclid vs canberra)
+        panel.repaint();
     }
 
     public InteractivePanel getPanel(){

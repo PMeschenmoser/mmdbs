@@ -148,6 +148,6 @@ public class Measures {
         for (int i=0; i<a.length; i++){
             result+= Math.abs(a[i]+ result - b[i]);
         }
-        return result;
+        return result*Math.pow(10, -14); //because the plotter cant handle 1.051893223099762E16 :)
     }
 }
