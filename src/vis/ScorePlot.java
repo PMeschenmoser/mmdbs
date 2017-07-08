@@ -2,12 +2,14 @@ package vis;
 
 import de.erichseifert.gral.data.DataTable;
 import de.erichseifert.gral.graphics.Insets2D;
+import de.erichseifert.gral.graphics.Label;
 import de.erichseifert.gral.graphics.Location;
 import de.erichseifert.gral.plots.BarPlot;
 import de.erichseifert.gral.plots.XYPlot;
 import de.erichseifert.gral.ui.InteractivePanel;
 import de.erichseifert.gral.util.GraphicsUtils;
 import search.ScoreItem;
+
 import java.awt.*;
 
 /**
@@ -20,10 +22,11 @@ public class ScorePlot {
 
     public ScorePlot() {
         plot = new BarPlot();
-        plot.getAxis(XYPlot.AXIS_X).setAutoscaled(true);
-        plot.getAxis(XYPlot.AXIS_Y).setAutoscaled(true);
+        plot.getAxis(BarPlot.AXIS_X).setAutoscaled(true);
+        plot.getAxis(BarPlot.AXIS_Y).setAutoscaled(true);
+        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Distance"));
+        plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("File"));
 
-        d = new DataTable(Integer.class, Double.class);
         panel =  new InteractivePanel(plot);
         panel.setPannable(true);
         panel.setZoomable(false);
@@ -34,11 +37,11 @@ public class ScorePlot {
 
         d = new DataTable(Integer.class, Double.class, String.class);
         int x= 1;
-        double max = 0;
+        //double max = 0;
         for (ScoreItem s: score){
 
             d.add(x, s.getScore(), s.getFile().getName());
-            if (max < s.getScore()) max = s.getScore();
+            //if (max < s.getScore()) max = s.getScore();
             x++;
         }
         plot.setInsets(new Insets2D.Double(40.0, 80.0, 40.0, 40.0));
@@ -67,7 +70,7 @@ public class ScorePlot {
                         new Color[] { GraphicsUtils.deriveBrighter(COLOR1), COLOR1 }
                 )
         );
-        plot.getAxis(XYPlot.AXIS_Y).setMax(max); //because autoscale seems to fail at large differences (c.f. euclid vs canberra)
+        //plot.getAxis(XYPlot.AXIS_Y).setMax(max); //because autoscale seems to fail at large differences (c.f. euclid vs canberra)
         panel.repaint();
     }
 

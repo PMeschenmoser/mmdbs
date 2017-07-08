@@ -27,8 +27,8 @@ public class HistogramPlot {
         plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("Bins"));
         plot.getAxis(XYPlot.AXIS_X).setAutoscaled(true);
         plot.getAxis(XYPlot.AXIS_Y).setAutoscaled(true);
-        plot.setInsets(new Insets2D.Double(10.0, 10.0, 10.0, 10.0));
-        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Abs. Freq."));
+        plot.setInsets(new Insets2D.Double(5.0, 5.0, 5.0, 5.0));
+        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Count"));
         queryRenderer = new DefaultLineRenderer2D();
         queryRenderer.setColor(new Color(0.0f, 0.0f, 0.0f));
         outputRenderer = new DefaultLineRenderer2D();

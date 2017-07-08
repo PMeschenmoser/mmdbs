@@ -1,8 +1,6 @@
+import eval.Evaluator;
 import feature.ColorHistogram;
-import gui.FileDrop;
-import gui.GalleryRenderer;
-import gui.ScoreView;
-import gui.Settings;
+import gui.*;
 import misc.Serializer;
 import search.Calculator;
 import search.ScoreItem;
@@ -38,6 +36,7 @@ public class UI {
     private JLabel labelin;
     private JPanel tabOriginal;
     private JMenuItem showscoreplot;
+    private JMenuItem showevaluation;
 
 
     private int imgheight;
@@ -48,6 +47,7 @@ public class UI {
     private java.util.List<ScoreItem> score;
     private Settings settings;
     private ScoreView scoreview;
+    private EvalView evalview;
 
 
     private Calculator calculator;
@@ -58,6 +58,7 @@ public class UI {
         settings = new gui.Settings();
         calculator = new Calculator(settings);
         scoreview = new ScoreView();
+        evalview = new EvalView();
 
         imgheight = 230;
         listmodel = new DefaultListModel<>();
@@ -65,6 +66,7 @@ public class UI {
         FileFilter imageFilter = new FileNameExtensionFilter(
                 "Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
+        fileChooser.setCurrentDirectory(new File("data/"));
 
         setImageCanvas(new File("gui/input.png"), true, false);
         setImageCanvas(new File("gui/output.png"), false, false );
@@ -113,6 +115,11 @@ public class UI {
         showscoreplot.setEnabled(false);
         showscoreplot.addActionListener(e -> scoreview.show());
         outputmenu.add(showscoreplot);
+
+        showevaluation = new JMenuItem("Show Evaluation.");
+        showevaluation.setEnabled(false);
+        showevaluation.addActionListener(e -> evalview.show());
+        outputmenu.add(showevaluation);
 
         JMenu settingsmenu = new JMenu("Settings");
 
@@ -207,10 +214,12 @@ public class UI {
 
         updatePlots(in, true);
         scoreview.setScore(score);
+        evalview.setEvaluator(new Evaluator(in, score));
 
         //after first search:
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,true);
         showscoreplot.setEnabled(true);
+        showevaluation.setEnabled(true);
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){

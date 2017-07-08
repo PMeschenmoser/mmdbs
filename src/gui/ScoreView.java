@@ -34,5 +34,7 @@ public class ScoreView {
 
     public void show(){
         frame.setVisible(true);
+        frame.toFront();
+        frame.repaint();
     }
 }

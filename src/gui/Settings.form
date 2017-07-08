@@ -15,7 +15,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="/data/hedgehog"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="fc14f" class="javax.swing.JComboBox" binding="descriptorcombo">

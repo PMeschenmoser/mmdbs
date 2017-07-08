@@ -32,7 +32,8 @@ public class Settings {
     private File defaultpath;
 
     public Settings() {
-        defaultpath = new File("data/hedgehog/");
+        defaultpath = new File("data/");
+        searchpathtext.setText("data/");
 
         pathChooser = new JFileChooser();
         pathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -41,7 +42,7 @@ public class Settings {
         cellcountspinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
         bincountspinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
         eigenvaluespinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
-        maxresultsspinner.setModel(new SpinnerNumberModel(50, 1, 1000, 1));
+        maxresultsspinner.setModel(new SpinnerNumberModel(54, 1, 1000, 1));
         threadsspinner.setModel(new SpinnerNumberModel(5, 1, 10, 1));
         bincountspinner.addChangeListener(e -> {
             int val = (int) bincountspinner.getValue();
@@ -61,6 +62,7 @@ public class Settings {
 
     public static void show(){
         frame.setVisible(true);
+        frame.toFront();
     }
 
     private void setPathByChooser(){
@@ -75,6 +77,7 @@ public class Settings {
         if (directory.isDirectory()){
             listfiles(directory, files);
         } else {
+            System.out.println("get from default path");
             listfiles(defaultpath, files);
         }
         return files.toArray(new File[files.size()]);   //for invalid text input
