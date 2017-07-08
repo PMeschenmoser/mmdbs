@@ -102,10 +102,8 @@ public class Measures {
         return Math.sqrt(result);
     }
     public static double weighted_euclid_inner(double[] a, double[] b, double[] w, int dims){
-        if (dims == -1){
+        if (dims < 1 || dims > a.length){
             dims = a.length;
-        } else {
-            dims = Math.min(Math.max(0, dims), a.length);
         }
         double result = 0;
         for (int bin = 0; bin<dims; bin++){
