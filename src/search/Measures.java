@@ -148,7 +148,7 @@ public class Measures {
     private static double emd_inner(double[] a, double[] b){
         double result = 0.0;
         for (int i=0; i<a.length; i++){
-            result+= a[i]+ result + b[i];
+            result+= Math.abs(a[i]+ result - b[i]);
         }
         return result;
     }
