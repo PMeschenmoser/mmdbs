@@ -7,15 +7,77 @@ import java.util.stream.DoubleStream;
 public class Measures {
 
 
+    public static double chebyshev(ColorHistogram a, ColorHistogram b){
+        double[][][] acells = a.getResults();
+        double[][][] bcells = b.getResults();
+
+        double[] cellresults = new double[acells.length*3];
+        for (int cell = 0; cell < acells.length; cell++) {
+            for (int channel = 0; channel < acells[cell].length; channel++) {
+                cellresults[cell] = chebyshev_inner(acells[cell][channel], bcells[cell][channel]);
+            }
+        }
+        DoubleStream s = DoubleStream.of(cellresults);
+        return s.average().getAsDouble();
+    }
+
+    private static double chebyshev_inner(double[] a, double[] b){
+        double max = 0.0;
+        double tmp;
+        for (int i=0; i<a.length; i++){
+            tmp =Math.abs(a[i]-b[i]);
+            if (tmp > max) max = tmp;
+        }
+        return max;
+    }
+    public static double canman(ColorHistogram a, ColorHistogram b, boolean iscanberra){
+        double[][][] acells = a.getResults();
+        double[][][] bcells = b.getResults();
+
+        double[] cellresults = new double[acells.length*3];
+        if (iscanberra){
+            for (int cell = 0; cell<acells.length; cell++){
+                for (int channel = 0; channel < acells[cell].length; channel++){
+                    cellresults[cell] = canberra_inner(acells[cell][channel], bcells[cell][channel]);
+                }
+            }
+        } else { //manhattan
+            for (int cell = 0; cell<acells.length; cell++){
+                for (int channel = 0; channel < acells[cell].length; channel++){
+                    cellresults[cell] = manhattan_inner(acells[cell][channel], bcells[cell][channel]);
+                }
+            }
+        }
+        DoubleStream s = DoubleStream.of(cellresults);
+        return s.average().getAsDouble();
+    }
+    private static double canberra_inner(double[] a, double[] b){
+        double result = 0.0;
+        double div;
+        for (int i=0; i<a.length; i++){
+            div = a[i] + b[i];
+            if (div > 0){
+                result += Math.abs(a[i]-b[i])/div;
+            }
+        }
+        return result;
+    }
+
+    private static double manhattan_inner(double[] a, double[] b){
+        double result = 0.0;
+        for (int i=0; i<a.length; i++){
+            result += Math.abs(a[i]-b[i]);
+        }
+        return result;
+    }
+
     public static double euclid(ColorHistogram a, ColorHistogram b, int mode){
         double[][][] acells = a.getResults();
         double[][][] bcells = b.getResults();
-        if (acells.length != bcells.length) return -1; //different cell length
 
         double[] cellresults = new double[acells.length*3];
         for (int cell = 0; cell<acells.length; cell++){
-            if (acells[cell].length != bcells[cell].length) return -1;
-            for (int channel = 0; channel < 3; channel++){
+            for (int channel = 0; channel < acells[cell].length; channel++){
                 cellresults[cell] = euclid_inner(acells[cell][channel], bcells[cell][channel], -1);
             }
         }
@@ -55,9 +117,6 @@ public class Measures {
     public static double quadraticform(ColorHistogram a, ColorHistogram b, QFWrapper wrapper){
         double[][][] acells = a.getResults();
         double[][][] bcells = b.getResults();
-        if (acells.length != bcells.length) return -1; //different cell length
-        if (acells[0].length != bcells[0].length) return -1; //different #channels
-        if (acells[0][0].length != bcells[0][0].length  ) return -1; //different #bins
 
         double[] cellresults = new double[acells.length*3];
         RealMatrix u = wrapper.getU();
@@ -71,5 +130,26 @@ public class Measures {
             }
         }
         return DoubleStream.of(cellresults).average().getAsDouble();
+    }
+    public static double emd(ColorHistogram a, ColorHistogram b){
+        double[][][] acells = a.getResults();
+        double[][][] bcells = b.getResults();
+
+        double[] cellresults = new double[acells.length*3];
+        for (int cell = 0; cell < acells.length; cell++) {
+            for (int channel = 0; channel < acells[cell].length; channel++) {
+                cellresults[cell] = emd_inner(acells[cell][channel], bcells[cell][channel]);
+            }
+        }
+        DoubleStream s = DoubleStream.of(cellresults);
+        return s.average().getAsDouble();
+    }
+
+    private static double emd_inner(double[] a, double[] b){
+        double result = 0.0;
+        for (int i=0; i<a.length; i++){
+            result+= a[i]+ result + b[i];
+        }
+        return result;
     }
 }

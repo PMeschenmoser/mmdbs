@@ -126,7 +126,10 @@
           <model>
             <item value="Euclidean"/>
             <item value="Quadratic Form"/>
-            <item value="Earthmover"/>
+            <item value="Manhattan"/>
+            <item value="Canberra"/>
+            <item value="Chebyshev"/>
+            <item value="EMD"/>
           </model>
         </properties>
       </component>
