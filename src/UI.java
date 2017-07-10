@@ -94,6 +94,7 @@ public class UI {
             }
         });
 
+        //update last query on button click in settings panel:
         settings.getUpdater().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -163,6 +164,7 @@ public class UI {
     }
 
     private void initHistograms(){
+        //instantiate 3 HistogramPlots and add their interactive panels as new tab components
         plots = new HistogramPlot[3];
         plots[0] = new HistogramPlot(Color.RED);
         tabbedPane1.add(plots[0].getPanel(), "R");
@@ -170,11 +172,16 @@ public class UI {
         tabbedPane1.add(plots[1].getPanel(), "G");
         plots[2] = new HistogramPlot(Color.BLUE);
         tabbedPane1.add(plots[2].getPanel(), "B");
+        //before any query image selected, to avoid boundary errors with empty plots:
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,false);
     }
     private  void query(){
-        File[] files = settings.getSearchFiles();
-        int cellcount = settings.getCellCount();
+        //most important method
+        //1. gather candidates
+        //2. generate/deserialize color histograms
+        //3. search, sort and chop off result list
+        File[] files = settings.getSearchFiles(); //from search path + subfolders
+        int cellcount = settings.getCellCount(); // per axis
         int bincount = settings.getBinCount();
 
 
@@ -183,7 +190,7 @@ public class UI {
          */
         ColorHistogram in;
         String serQuery = Serializer.getPathSerialized(selectedin, cellcount, bincount);
-        if (serQuery.length() > 0){
+        if (serQuery.length() > 0){ // there exists a serialized version of selectedin with cellcount and bincount
             in = Serializer.deserialize(serQuery);
         } else {
             in = new ColorHistogram(selectedin, cellcount, bincount);
@@ -217,9 +224,10 @@ public class UI {
             Calculate similarity
          */
         score = calculator.run(in, candidates);
-        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore()));
-        score =  score.subList(0, Math.min(settings.getMaxResults(), score.size()));
+        Collections.sort(score, (o1, o2) -> o1.getScore().compareTo(o2.getScore())); //sort by ascending distance
+        score =  score.subList(0, Math.min(settings.getMaxResults(), score.size())); //apply max results
 
+        /* update gallery*/
         listmodel.removeAllElements();
         for (ScoreItem s : score){
             String key = s.getFile().getParentFile().getName()+ "/" + s.getFile().getName();
@@ -233,7 +241,7 @@ public class UI {
             Serializer.serialize(iter.next());
         }
 
-
+        //update histograms, score and evaluation plots
         updatePlots(in, true);
         scoreview.setScore(score);
         evalview.setEvaluator(new Evaluator(in, score));
@@ -245,6 +253,7 @@ public class UI {
     }
 
     private void updatePlots(ColorHistogram c, boolean isQueryImage){
+        //double[3][256] histograms
         double[][] histograms = c.getMergedChannelHistograms();
         for (int channel= 0; channel < histograms.length; channel++){
             plots[channel].setHistogramData(histograms[channel],  c.getFile().getName(),isQueryImage);
@@ -255,6 +264,9 @@ public class UI {
 
     private void setImageCanvas(File f, boolean left, boolean updateLabel){
         try {
+            //applies selected image either to the left or right canvas
+            //the image has a constant height
+            //we deduce the width from the original's image ratio
             BufferedImage img = ImageIO.read(f);
             double ratio =img.getWidth() *1.0/img.getHeight()*1.0;
             ImageIcon icon = new ImageIcon(img.getScaledInstance((int) (imgheight*ratio), imgheight,  Image.SCALE_SMOOTH));
