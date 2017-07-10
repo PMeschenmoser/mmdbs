@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 /**
- * Created by Phil on 08.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
+ */
+
+/*
+    ANALOGOUS TO CanmanCallable!
+    In addition, it takes the QFWrapper into account.
  */
 public class QFCallable implements Callable
 {

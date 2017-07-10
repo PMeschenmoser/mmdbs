@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- * Created by Phil on 08.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class CanmanCallable implements Callable {
 
@@ -20,6 +20,7 @@ public class CanmanCallable implements Callable {
     private boolean canberra;
 
     public CanmanCallable(ColorHistogram query, ColorHistogram[] candidates, int start, int end, boolean canberra){
+        //assign class variables, so that these values are accessible in call().
         this.query = query;
         this.candidates = candidates;
         this.start = start;
@@ -29,6 +30,7 @@ public class CanmanCallable implements Callable {
     @Override
     public Object call() throws Exception {
         List<ScoreItem> localresults = new ArrayList<>();
+        //performs search in one single window, using the canman metric.
         for (int i = start; i<Math.min(end, candidates.length); i++)
         {
             Double dist = Measures.canman(query,candidates[i],canberra);

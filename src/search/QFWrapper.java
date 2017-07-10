@@ -6,21 +6,25 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 /**
- * Created by HP on 01.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class QFWrapper {
-
+    /*
+        This class returns the eigenvalues, yielded by the SVD of a bincount*bincount
+        human perception weight matrix. It ensures that all properties are compactly
+        represented and no repetitive computation are required. Instantiated by the Calculator.
+     */
     private RealMatrix A;
     private double[] eigenvalues;
     private RealMatrix u;
     private int maxeigen;
 
     public QFWrapper(int bincount, int maxeigen){
-        A = MatrixUtils.createRealMatrix(Util.createHumanPerceptionSimilarityMatrix(bincount));
+        A = MatrixUtils.createRealMatrix(Util.createHumanPerceptionSimilarityMatrix(bincount)); //input matrix
         SingularValueDecomposition svd = new SingularValueDecomposition(A);
-        eigenvalues = svd.getSingularValues();
-        u = svd.getU();
-        this.maxeigen = maxeigen;
+        eigenvalues = svd.getSingularValues(); //main diagonal of Sigma, in descending order
+        u = svd.getU(); //eigenvectors, needed for qV
+        this.maxeigen = maxeigen; //maximum amount of eigenvalues to use for distance computation
     }
 
     public RealMatrix getA(){

@@ -48,9 +48,8 @@ public class ScorePlot {
         int x= 1;
         double max = 0;
         for (ScoreItem s: score){
-
             d.add(x, s.getScore(), s.getFile().getName());
-            if (max < s.getScore()) max = s.getScore();
+            if (max < s.getScore()) max = s.getScore(); //needed as there are problems with autoscale
             x++;
         }
         plot.add(d);
@@ -62,20 +61,25 @@ public class ScorePlot {
         pointRenderer.setBorderStroke(new BasicStroke(3f));
         pointRenderer.setValueVisible(true);
         pointRenderer.setValueColumn(2);
-        pointRenderer.setValueLocation(Location.NORTH);
+        pointRenderer.setValueLocation(Location.NORTH); //labels above bars
         pointRenderer.setValueFont(Font.decode(null).deriveFont(Font.BOLD));
-        Color COLOR1 =  new Color( 55, 170, 200);
+
+        /*
+            Apply a color gradient to the bars.
+
+         */
+        Color color =  new Color( 55, 170, 200);
         pointRenderer.setColor(
                 new LinearGradientPaint(0f,0f, 0f,1f,
                         new float[] { 0.0f, 1.0f },
-                        new Color[] { COLOR1, GraphicsUtils.deriveBrighter(COLOR1) }
+                        new Color[] { color, GraphicsUtils.deriveBrighter(color) }
                 )
         );
         pointRenderer.setBorderStroke(new BasicStroke(1f));
         pointRenderer.setBorderColor(
                 new LinearGradientPaint(0f,0f, 0f,1f,
                         new float[] { 0.0f, 1.0f },
-                        new Color[] { GraphicsUtils.deriveBrighter(COLOR1), COLOR1 }
+                        new Color[] { GraphicsUtils.deriveBrighter(color), color }
                 )
         );
 

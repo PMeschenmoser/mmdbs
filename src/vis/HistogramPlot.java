@@ -27,6 +27,8 @@ public class HistogramPlot {
         plot = new XYPlot();
 
         plot.setInsets(new Insets2D.Double(5.0, 5.0, 5.0, 5.0)); //margin
+        plot.getAxisRenderer(XYPlot.AXIS_Y).setTickLabelsOutside(false); //inside labels
+        plot.getAxisRenderer(XYPlot.AXIS_X).setTickLabelsOutside(false);
 
         //axis labels
         plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("Bin"));
@@ -64,7 +66,7 @@ public class HistogramPlot {
             outputHistogram = series;
             plot.add(outputHistogram);
             plot.setLineRenderers(outputHistogram, outputRenderer);
-            plot.getPointRenderers(outputHistogram).get(0).setShape(null);
+            plot.getPointRenderers(outputHistogram).get(0).setShape(null);//dont show points
         }
     }
     public void clearQueryLine(){

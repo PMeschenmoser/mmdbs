@@ -1,13 +1,18 @@
 package gui;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Created by user on 03.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class Settings {
+
+    /*
+        Objects bound to the UI.
+     */
     private static JFrame frame;
     private JPanel panel1;
     private  JTextField searchpathtext;
@@ -31,20 +36,36 @@ public class Settings {
     private JFileChooser pathChooser;
     private File defaultpath;
 
+    /**
+     * Authors: P. Meschenmoser, C. Gutknecht
+     */
     public Settings() {
+        /*
+            Settings panel, accessible via "Settings/All.."
+
+         */
+        /*
+            set default search path (in the project directory's subfolder) and initiate the folder selector
+         */
         defaultpath = new File("data/");
         searchpathtext.setText("data/");
 
         pathChooser = new JFileChooser();
         pathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        pathChooser.setCurrentDirectory(defaultpath);
         pathChooser.setAcceptAllFileFilterUsed(false);
 
+        /*
+            Boundaries/Logic for spinner fields:
+
+         */
         cellcountspinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
         bincountspinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
         eigenvaluespinner.setModel(new SpinnerNumberModel(50, 1, 256, 1));
         maxresultsspinner.setModel(new SpinnerNumberModel(54, 1, 1000, 1));
         threadsspinner.setModel(new SpinnerNumberModel(5, 1, 10, 1));
         bincountspinner.addChangeListener(e -> {
+            //synchronize max eigenvalue with bincounts (i.e. there cannot be more than eigenvalues than bincounts)
             int val = (int) bincountspinner.getValue();
             eigenvaluespinner.setModel(new SpinnerNumberModel(val, 1, val, 1));
         });
@@ -67,11 +88,13 @@ public class Settings {
 
     private void setPathByChooser(){
         if (pathChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+            //apply selected directory to the input field:
             searchpathtext.setText(pathChooser.getSelectedFile().getAbsolutePath());
         }
     }
 
     public File[] getSearchFiles(){
+        //returns all files that are contained
         ArrayList<File> files = new ArrayList<>();
         File directory = new File(searchpathtext.getText());
         if (directory.isDirectory()){
@@ -85,16 +108,21 @@ public class Settings {
 
 
     private void listfiles(File directory, ArrayList<File> in){
+        //recursively add all images files to 'in'
         File[] fList = directory.listFiles();
         for (File file : fList) {
             if (file.isFile()) {
-                in.add(file);
+                String mimetype= new MimetypesFileTypeMap().getContentType(file); //allow only image files
+                if(mimetype.split("/")[0].equals("image")) in.add(file);
             } else if (file.isDirectory()) {
                 listfiles(file, in);
             }
         }
     }
 
+    /*
+        Simple Getter Methods
+     */
     public int getCellCount(){
         return  (int) cellcountspinner.getValue();
     }
@@ -116,7 +144,9 @@ public class Settings {
         return (String) metriccombobox.getSelectedItem();
     }
 
+
     public JButton getUpdater(){
+        //this is needed, as we apply an event listener in UI.java, which runs the search afterwards.
         return updatecurrent;
     }
 }

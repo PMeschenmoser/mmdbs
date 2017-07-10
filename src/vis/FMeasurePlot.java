@@ -49,7 +49,7 @@ public class FMeasurePlot {
         plot.setLineRenderers(d, lines);
 
         //c.f. PRPlot
-        plot.getAxis(XYPlot.AXIS_X).setRange(-0.3, 1.3);
+        plot.getAxis(XYPlot.AXIS_X).setRange(0.7, 2.3);
         plot.getAxis(XYPlot.AXIS_Y).setRange(-0.3, 1.3);
 
         //render

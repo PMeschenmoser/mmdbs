@@ -7,15 +7,15 @@ import vis.PRPlot;
 import javax.swing.*;
 
 /**
- * Created by Phil on 08.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class EvalView {
+    //Swing Wrapper for Evaluation Dialog. It contains the tabbed component and is accessible via "Output/Show Evaluation.."
     private JFrame frame;
     private JPanel panel1;
     private JTabbedPane tabbedeval;
     private PRPlot prplot;
     private FMeasurePlot fplot;
-
 
     public EvalView() {
         frame = new JFrame("Evaluation");
@@ -26,10 +26,10 @@ public class EvalView {
         frame.setSize(500, 500);
 
         prplot = new PRPlot();
-        tabbedeval.add("Precision/Recall" , prplot.getPanel());
+        tabbedeval.add("Precision/Recall" , prplot.getPanel()); //add pr plot as a new tab
 
         fplot = new FMeasurePlot();
-        tabbedeval.add("F-Measure" , fplot.getPanel());
+        tabbedeval.add("F-Measure" , fplot.getPanel()); //add fmeasure plot as a new tab
     }
 
     public void show(){
@@ -38,7 +38,7 @@ public class EvalView {
         frame.repaint();
     }
     public void setEvaluator(Evaluator evaluator){
-        prplot.setData(evaluator.getPR());
+        prplot.setData(evaluator.getPR()); //update plots
         fplot.setData(evaluator.getFMeasure());
     }
 }

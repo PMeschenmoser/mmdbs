@@ -7,9 +7,10 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Created by Phil on 07.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class ScoreView {
+    //Swing Wrapper for Bar Chart...
     private JFrame frame;
     private JPanel panel;
     private ScorePlot plot;
@@ -23,13 +24,15 @@ public class ScoreView {
         frame.setResizable(true);
         frame.setVisible(false);
         frame.setSize(700, 500);
+
+        //add score plot to the jframe...
         plot = new ScorePlot();
         frame.getContentPane().add(plot.getPanel());
     }
 
     public void setScore(List<ScoreItem> score ){
-        plot.setValues(score);
-        frame.repaint();
+        plot.setValues(score); //update vis
+        frame.repaint(); //needed!
     }
 
     public void show(){
