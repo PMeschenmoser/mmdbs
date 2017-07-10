@@ -11,24 +11,32 @@ import de.erichseifert.gral.ui.InteractivePanel;
 
 import java.awt.*;
 /**
- * Created by Phil on 06.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class HistogramPlot {
     private InteractivePanel panel;
     private XYPlot plot;
+    //data objects
     private DataSeries queryHistogram;
     private DataSeries outputHistogram;
+    //line renderers
     private LineRenderer queryRenderer;
     private LineRenderer outputRenderer;
 
     public HistogramPlot(Color outputColor){
         plot = new XYPlot();
-        plot.setLegendVisible(true);
-        plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("Bins"));
+
+        plot.setInsets(new Insets2D.Double(5.0, 5.0, 5.0, 5.0)); //margin
+
+        //axis labels
+        plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("Bin"));
+        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Count"));
+
+        //autoscale
         plot.getAxis(XYPlot.AXIS_X).setAutoscaled(true);
         plot.getAxis(XYPlot.AXIS_Y).setAutoscaled(true);
-        plot.setInsets(new Insets2D.Double(5.0, 5.0, 5.0, 5.0));
-        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Count"));
+
+        //renderers, lines in black and custom color
         queryRenderer = new DefaultLineRenderer2D();
         queryRenderer.setColor(new Color(0.0f, 0.0f, 0.0f));
         outputRenderer = new DefaultLineRenderer2D();
@@ -38,19 +46,20 @@ public class HistogramPlot {
     }
 
     public void setHistogramData(double[] c,  String label, boolean isQueryObject){
+        //fill table, imitate a step-function
         DataTable table = new DataTable(Integer.class, Double.class);
         for (int i= 0; i<c.length; i++){
             table.add(i, c[i]);
             table.add(i+1, c[i]);
         }
         DataSeries series = new DataSeries(label, table);
-        if (isQueryObject){
+        if (isQueryObject){ //plot query image histogram
             clearQueryLine();
             queryHistogram = series;
             plot.add(queryHistogram);
             plot.setLineRenderers(queryHistogram, queryRenderer);
-            plot.getPointRenderers(queryHistogram).get(0).setShape(null);
-        } else {
+            plot.getPointRenderers(queryHistogram).get(0).setShape(null); //dont show points
+        } else { //plot selected output image histogram
             clearOutputLine();
             outputHistogram = series;
             plot.add(outputHistogram);

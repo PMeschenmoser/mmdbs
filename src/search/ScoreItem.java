@@ -5,15 +5,19 @@ import feature.ColorHistogram;
 import java.io.File;
 
 /**
- * Created by HP on 01.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class ScoreItem {
+    /*
+        This class is a wrapper fro ColorHistograms and their score value.
+        E.g. it simplifies sorting file names according to  their score value.
+     */
+
     private File f;
     private Double value;
     private ColorHistogram histogram;
 
     public ScoreItem(ColorHistogram histogram, Double value){
-
         this.value = value;
         this.histogram = histogram;
     }

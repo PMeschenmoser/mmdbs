@@ -10,7 +10,7 @@ import de.erichseifert.gral.ui.InteractivePanel;
 import java.awt.*;
 
 /**
- * Created by Phil on 08.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class FMeasurePlot {
 
@@ -21,28 +21,38 @@ public class FMeasurePlot {
 
     public FMeasurePlot() {
         plot = new XYPlot();
+        //axis labels:
         plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("#Results"));
         plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("F1-Score"));
+        //make ticks always visible:
         plot.getAxisRenderer(XYPlot.AXIS_Y).setTickLabelsOutside(false);
         plot.getAxisRenderer(XYPlot.AXIS_X).setTickLabelsOutside(false);
 
+        //line renderer
         lines = new DefaultLineRenderer2D();
         lines.setColor(new Color(0.0f, 0.0f, 0.0f));
+
+        //pannable + zoomable panel:
         panel =  new InteractivePanel(plot);
         panel.setPannable(true);
         panel.setZoomable(true);
     }
 
     public void setData(double[] f){
-        if (d!= null) plot.remove(d);
+        if (d!= null) plot.remove(d);//remove old data
+        //fill data by #results vs f-score
         d = new DataTable(Integer.class, Double.class);
         for (int i=0; i<f.length; i++){
-            d.add(i, f[i]);
+            d.add(i+1, f[i]);
         }
         plot.add(d);
         plot.setLineRenderers(d, lines);
+
+        //c.f. PRPlot
         plot.getAxis(XYPlot.AXIS_X).setRange(-0.3, 1.3);
         plot.getAxis(XYPlot.AXIS_Y).setRange(-0.3, 1.3);
+
+        //render
         panel.repaint();
     }
     public InteractivePanel getPanel(){

@@ -13,41 +13,49 @@ import search.ScoreItem;
 import java.awt.*;
 
 /**
- * Created by Phil on 07.07.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class ScorePlot {
+    /*
+        Interactive Bar Plot for showing the output's ranking.
+     */
+
     private XYPlot plot;
     private DataTable d;
     private InteractivePanel panel;
 
     public ScorePlot() {
+        //init bar plot, set autoscaling and axis labels
         plot = new BarPlot();
         plot.getAxis(BarPlot.AXIS_X).setAutoscaled(true);
-        plot.getAxis(BarPlot.AXIS_Y).setAutoscaled(true);
-        plot.getAxisRenderer(XYPlot.AXIS_Y).setLabel(new Label("Distance"));
-        plot.getAxisRenderer(XYPlot.AXIS_X).setLabel(new Label("File"));
-
+       // plot.getAxis(BarPlot.AXIS_Y).setAutoscaled(true);
+        plot.getAxisRenderer(BarPlot.AXIS_Y).setLabel(new Label("Distance"));
+        plot.getAxisRenderer(BarPlot.AXIS_X).setLabel(new Label("File"));
+        // add some margin
+        plot.setInsets(new Insets2D.Double(40.0, 80.0, 40.0, 40.0));
+        //interactive panel:
         panel =  new InteractivePanel(plot);
         panel.setPannable(true);
         panel.setZoomable(false);
     }
 
     public void setValues(java.util.List<ScoreItem> score ){
-        if (d!= null) plot.remove(d);
+        if (d!= null) plot.remove(d); //remove old data
 
+        //insert new data
         d = new DataTable(Integer.class, Double.class, String.class);
+        //DataTable(xposition, distance, label)
         int x= 1;
-        //double max = 0;
+        double max = 0;
         for (ScoreItem s: score){
 
             d.add(x, s.getScore(), s.getFile().getName());
-            //if (max < s.getScore()) max = s.getScore();
+            if (max < s.getScore()) max = s.getScore();
             x++;
         }
-        plot.setInsets(new Insets2D.Double(40.0, 80.0, 40.0, 40.0));
-
         plot.add(d);
 
+        //specify renderers for the new data objects
         BarPlot.BarRenderer pointRenderer = (BarPlot.BarRenderer) plot.getPointRenderers(d).get(0);
         pointRenderer.setValueRotation(90);
 
@@ -70,7 +78,10 @@ public class ScorePlot {
                         new Color[] { GraphicsUtils.deriveBrighter(COLOR1), COLOR1 }
                 )
         );
-        //plot.getAxis(XYPlot.AXIS_Y).setMax(max); //because autoscale seems to fail at large differences (c.f. euclid vs canberra)
+
+        //because autoscale seems to fail at large differences (c.f. euclid vs canberra)
+        plot.getAxis(BarPlot.AXIS_Y).setMax(max);
+        //render
         panel.repaint();
     }
 

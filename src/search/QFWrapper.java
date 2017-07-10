@@ -12,14 +12,15 @@ public class QFWrapper {
 
     private RealMatrix A;
     private double[] eigenvalues;
-    private int maxeigen;
     private RealMatrix u;
+    private int maxeigen;
 
     public QFWrapper(int bincount, int maxeigen){
         A = MatrixUtils.createRealMatrix(Util.createHumanPerceptionSimilarityMatrix(bincount));
         SingularValueDecomposition svd = new SingularValueDecomposition(A);
         eigenvalues = svd.getSingularValues();
         u = svd.getU();
+        this.maxeigen = maxeigen;
     }
 
     public RealMatrix getA(){
@@ -31,10 +32,12 @@ public class QFWrapper {
     }
 
     public RealMatrix getU(){
-        return A;
+        return u;
     }
 
     public int getMaxEigen(){
         return maxeigen;
     }
+
+
 }
