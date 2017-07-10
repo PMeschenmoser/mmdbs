@@ -115,4 +115,8 @@ public class Settings {
     public String getMetric(){
         return (String) metriccombobox.getSelectedItem();
     }
+
+    public JButton getUpdater(){
+        return updatecurrent;
+    }
 }

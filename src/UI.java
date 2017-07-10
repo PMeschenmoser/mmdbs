@@ -22,9 +22,12 @@ import java.util.Collections;
 import java.util.Iterator;
 
 /**
- * Created by HP on 30.06.2017.
+ * Authors: P. Meschenmoser, C. Gutknecht
  */
 public class UI {
+    /*
+        Bound UI elements
+     */
     private static JFrame frame;
     private JPanel mainpanel;
     private JLabel imgleft;
@@ -38,19 +41,18 @@ public class UI {
     private JMenuItem showscoreplot;
     private JMenuItem showevaluation;
 
-
+    // some UI settings and addons
     private int imgheight;
     private static GalleryRenderer renderer;
-    private static File selectedin;
+    private static File selectedin; //currently chosen input file
     private JFileChooser fileChooser;
-    private static DefaultListModel<String> listmodel;
+    private static DefaultListModel<String> listmodel; //for the gallery
+
     private java.util.List<ScoreItem> score;
-    private Settings settings;
-    private ScoreView scoreview;
-    private EvalView evalview;
-
-
-    private Calculator calculator;
+    private Settings settings; //wrapper for the UI Settings panel
+    private ScoreView scoreview; //wrapper for bar chart view
+    private EvalView evalview; //wrapper for pr & f-measure plots
+    private Calculator calculator; //search engine
 
     private HistogramPlot[] plots;
 
@@ -62,20 +64,22 @@ public class UI {
 
         imgheight = 230;
         listmodel = new DefaultListModel<>();
+        // init file chooser and allow only image files
         fileChooser = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter(
                 "Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
         fileChooser.setCurrentDirectory(new File("data/"));
 
+        //set left and right default images
         setImageCanvas(new File("gui/input.png"), true, false);
         setImageCanvas(new File("gui/output.png"), false, false );
 
-        //drop listener:
+        //import via drop listener:
         new FileDrop( imgleft, files -> {
                 String mimetype= new MimetypesFileTypeMap().getContentType(files[0]);
                 String type = mimetype.split("/")[0];
-                if(type.equals("image")){
+                if(type.equals("image")){ //only allow images
                     selectedin = files[0];
                     setImageCanvas(selectedin, true, true );
                     query();
@@ -90,10 +94,19 @@ public class UI {
             }
         });
 
+        settings.getUpdater().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                query();
+            }
+        });
+        //define gallery behavior:
             renderer = new GalleryRenderer();
             list.setModel(listmodel);
             list.setCellRenderer(renderer);
             list.addListSelectionListener(e -> {
+                //show selected list item on the right canvas and update histograms
                 if (list.getSelectedValue() != null) {
                     ScoreItem s = renderer.getScoreItem(list.getSelectedValue().toString());
                     setImageCanvas(s.getFile(), false, true);
@@ -101,16 +114,33 @@ public class UI {
                 }
             });
            scroll.setPreferredSize(new Dimension(500, 50));
+
+        initMenus();
+        initHistograms();
+    }
+
+    public static void main(String[] args) {
+        frame = new JFrame("CBIR");
+        frame.setContentPane(new UI().mainpanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setSize(800,500);
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }
+
+    private void initMenus(){
         JMenuBar menuBar = new JMenuBar();
+        //INPUT MENU:
         JMenu inputmenu = new JMenu("Input");
         JMenuItem importmenu = new JMenuItem("Select Query Image.");
         importmenu.addActionListener(e -> importByDialog());
         inputmenu.add(importmenu);
         menuBar.add(inputmenu);
 
+        //OUTPUT MENU
         JMenu outputmenu = new JMenu("Output");
         menuBar.add(outputmenu);
-
         showscoreplot = new JMenuItem("Show Score Plot.");
         showscoreplot.setEnabled(false);
         showscoreplot.addActionListener(e -> scoreview.show());
@@ -121,14 +151,18 @@ public class UI {
         showevaluation.addActionListener(e -> evalview.show());
         outputmenu.add(showevaluation);
 
+        //SETTINGS MENU
         JMenu settingsmenu = new JMenu("Settings");
-
         JMenuItem allsettings = new JMenuItem("All...");
         allsettings.addActionListener(e -> settings.show());
         settingsmenu.add(allsettings);
         menuBar.add(settingsmenu);
 
+        //add to GUI:
         frame.setJMenuBar(menuBar);
+    }
+
+    private void initHistograms(){
         plots = new HistogramPlot[3];
         plots[0] = new HistogramPlot(Color.RED);
         tabbedPane1.add(plots[0].getPanel(), "R");
@@ -138,18 +172,6 @@ public class UI {
         tabbedPane1.add(plots[2].getPanel(), "B");
         for (int i=1; i<=plots.length; i++) tabbedPane1.setEnabledAt(i,false);
     }
-
-    public static void main(String[] args) {
-        frame = new JFrame("MMDBS");
-        frame.setContentPane(new UI().mainpanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(800,500);
-        frame.setResizable(false);
-        frame.setVisible(true);
-
-    }
-
     private  void query(){
         File[] files = settings.getSearchFiles();
         int cellcount = settings.getCellCount();
