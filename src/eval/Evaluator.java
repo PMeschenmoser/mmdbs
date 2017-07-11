@@ -1,6 +1,6 @@
 package eval;
 
-import feature.ColorHistogram;
+import feature.*;
 import search.ScoreItem;
 
 import java.io.File;
@@ -14,12 +14,12 @@ public class Evaluator {
         This class computes Precision/Recall Values and the F-Score for a given Score.
 
      */
-    private ColorHistogram in;
+    private FeatureHistogram in;
     private List<ScoreItem> score;
     private double[][] pr;
     private double[] f;
 
-    public Evaluator(ColorHistogram in, List<ScoreItem> score){
+    public Evaluator(FeatureHistogram in, List<ScoreItem> score){
         this.in = in;
         this.score = score;
         run();

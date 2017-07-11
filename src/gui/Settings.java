@@ -144,6 +144,9 @@ public class Settings {
         return (String) metriccombobox.getSelectedItem();
     }
 
+    public int getDescriptorIndex(){
+        return descriptorcombo.getSelectedIndex();
+    }
 
     public JButton getUpdater(){
         //this is needed, as we apply an event listener in UI.java, which runs the search afterwards.

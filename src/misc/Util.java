@@ -151,9 +151,9 @@ public class Util {
      * @param array
      *            one dimensional array
      */
-    public static void printHistogram(int[] array){
+    public static void printHistogram(double[] array){
 
-        int max = 0;
+        double max = 0;
         for(int i=0; i<array.length; i++){
             if(array[i] > max) max = array[i];
         }
@@ -168,4 +168,23 @@ public class Util {
         }
         System.out.println("----------------------------------------"); //40
     }
+
+    public static double mean(int[][] m) {
+        double sum = 0;
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                sum += m[i][j];
+            }
+        }
+        return sum / (m.length*m[1].length);
+    }
+
+    public static void printRow(int[] row) {
+        for (int i : row) {
+            System.out.print(i);
+            System.out.print("\t");
+        }
+        System.out.println();
+    }
+
 }

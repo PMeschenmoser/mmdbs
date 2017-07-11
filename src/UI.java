@@ -1,5 +1,5 @@
 import eval.Evaluator;
-import feature.ColorHistogram;
+import feature.*;
 import gui.*;
 import misc.Serializer;
 import search.Calculator;
@@ -111,7 +111,7 @@ public class UI {
                 if (list.getSelectedValue() != null) {
                     ScoreItem s = renderer.getScoreItem(list.getSelectedValue().toString());
                     setImageCanvas(s.getFile(), false, true);
-                    updatePlots(s.getHistogram(), false);
+                    if (s.getHistogram().getType() == 0) updatePlots((ColorHistogram)s.getHistogram(), false);
                 }
             });
            scroll.setPreferredSize(new Dimension(500, 50));
@@ -188,33 +188,42 @@ public class UI {
         /*
             Feature extraction/loading for query image:
          */
-        ColorHistogram in;
-        String serQuery = Serializer.getPathSerialized(selectedin, cellcount, bincount);
+        int type = settings.getDescriptorIndex(); // 0 for ColorHistogram, 1 for EdgeHistogram, 2 for TamuraLikeDescriptor
+        FeatureHistogram in;
+        String serQuery = Serializer.getPathSerialized(selectedin, type, cellcount, bincount);
         if (serQuery.length() > 0){ // there exists a serialized version of selectedin with cellcount and bincount
             in = Serializer.deserialize(serQuery);
         } else {
-            in = new ColorHistogram(selectedin, cellcount, bincount);
+            if(type == 0) in = new ColorHistogram(selectedin, cellcount, bincount);
+            else if(type == 1) in = new EdgeHistogram(selectedin, cellcount);
+            else in = new TamuraLikeDescriptor(selectedin, cellcount);
             Serializer.serialize(in);
         }
 
         /*
             Feature extraction/loading for search images:
          */
-        ArrayList<ColorHistogram> toSerialize = new ArrayList<>();
-        ColorHistogram[] candidates = new ColorHistogram[files.length];
+        ArrayList<FeatureHistogram> toSerialize = new ArrayList<>();
+        FeatureHistogram[] candidates = new FeatureHistogram[files.length];
         for (int i= 0; i<files.length;i++){
-            ColorHistogram c;
-            String ser = Serializer.getPathSerialized(files[i], cellcount, bincount);
+            FeatureHistogram c;
+            String ser = Serializer.getPathSerialized(files[i], type, cellcount, bincount);
             if (ser.length() > 0){
                 //this color histogram was already serialized.
+                System.out.println("found serialized version: " + ser);
                 c = Serializer.deserialize(ser);
                 if (c == null){
                     //deserializing failed, compute histogram again...
-                    c = new ColorHistogram(files[i], cellcount, bincount);
+                    System.out.println("deserializing failed, compute histogram again...");
+                    if(type == 0) c = new ColorHistogram(files[i], cellcount, bincount);
+                    else if(type == 1) c = new EdgeHistogram(files[i], cellcount);
+                    else c = new TamuraLikeDescriptor(files[i], cellcount);
                     toSerialize.add(c);
                 }
             } else {
-                c = new ColorHistogram(files[i], cellcount, bincount);
+                if(type == 0) c = new ColorHistogram(files[i], cellcount, bincount);
+                else if(type == 1) c = new EdgeHistogram(files[i], cellcount);
+                else c = new TamuraLikeDescriptor(files[i], cellcount);
                 toSerialize.add(c);
             }
             candidates[i] = c;
@@ -236,13 +245,13 @@ public class UI {
         renderer.generateMap(score);
 
         //serialize new images:
-        Iterator<ColorHistogram> iter = toSerialize.listIterator();
+        Iterator<FeatureHistogram> iter = toSerialize.listIterator();
         while (iter.hasNext()){
             Serializer.serialize(iter.next());
         }
 
         //update histograms, score and evaluation plots
-        updatePlots(in, true);
+        if(type == 0) updatePlots((ColorHistogram) in, true);
         scoreview.setScore(score);
         evalview.setEvaluator(new Evaluator(in, score));
 

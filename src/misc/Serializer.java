@@ -1,6 +1,6 @@
 package misc;
 
-import feature.ColorHistogram;
+import feature.*;
 
 import java.io.*;
 
@@ -16,7 +16,7 @@ public class Serializer  {
         There, we include bin- and cellcount into the .ser's file name.
      */
 
-    public static void serialize(ColorHistogram c){
+    public static void serialize(FeatureHistogram c){
         //create folder
         String path = "ser/" + generateFolderName(c.getFile());
         if (!createFolder(path)){
@@ -24,7 +24,7 @@ public class Serializer  {
             return;
         }
         //create .ser file
-        path += "/" + c.getCellCount() + "-" + c.getBinCount()+"-";
+        path += "/" + c.getType() + "-" + c.getCellCount() + "-" + c.getBinCount()+"-";
         path += c.getFile().getName().replaceFirst("[.][^.]+$", "") + ".ser";
         try {
             //serialize ColorHistogram into the file
@@ -38,11 +38,11 @@ public class Serializer  {
         }
     }
 
-    public static ColorHistogram deserialize(String path){
+    public static FeatureHistogram deserialize(String path){
         try {
             //deserialize a given .ser file and return the ColorHistogram
             ObjectInputStream stream = new ObjectInputStream(new FileInputStream(path));
-            return (ColorHistogram) stream.readObject();
+            return (FeatureHistogram) stream.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -65,11 +65,11 @@ public class Serializer  {
         return f.getAbsolutePath().hashCode() + f.getAbsolutePath().replaceAll("[^A-Za-z]", "");
     }
 
-    public static String getPathSerialized(File f, int cellcount, int bincount) {
+    public static String getPathSerialized(File f, int type, int cellcount, int bincount) {
         //For a given image file, this method returns the path to the serialized file
         // empty string, if not existent. Then, we will serialize the histogram...
         String path = "ser/" + generateFolderName(f);
-        path += "/" + cellcount + "-" + bincount +"-";
+        path += "/" + type + "-" + cellcount + "-" + bincount +"-";
         path += f.getName().replaceFirst("[.][^.]+$", "") + ".ser";
         if (new File(path).exists())return path;
         return "";

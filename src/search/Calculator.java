@@ -1,6 +1,7 @@
 package search;
 
 import feature.ColorHistogram;
+import feature.FeatureHistogram;
 import gui.Settings;
 import search.callables.*;
 
@@ -27,7 +28,7 @@ public class Calculator {
         this.settings = settings;
     }
 
-    public List<ScoreItem> run(ColorHistogram query, ColorHistogram[] candidates){
+    public List<ScoreItem> run(FeatureHistogram query, FeatureHistogram[] candidates){
         List<ScoreItem> merged = new ArrayList<>(); //final results, merged from multiple threads
         int width = candidates.length/settings.getThreadCount(); //how many items should each thread check?
         ExecutorService pool = Executors.newFixedThreadPool(settings.getThreadCount()); //parallel execution

@@ -1,6 +1,6 @@
 package search;
 
-import feature.ColorHistogram;
+import feature.*;
 import org.apache.commons.math3.linear.RealMatrix;
 import java.util.stream.DoubleStream;
 
@@ -9,13 +9,13 @@ import java.util.stream.DoubleStream;
  */
 public class Measures {
     /*
-        Given two ColorHistogram's, this class computes their distance by the following metrics:
+        Given two FeatureHistogram's, this class computes their distance by the following metrics:
         Chebyshev, Canberra, Manhattan (merged into "Canman"), Euclidean, Weighted Euclidean,
         Quadratic Form and Earth-Mover's.
 
      */
 
-    public static double chebyshev(ColorHistogram a, ColorHistogram b){
+    public static double chebyshev(FeatureHistogram a, FeatureHistogram b){
         double[][][] acells = a.getResults(); //1. dim -> cells, 2. dim -> channel, 3. dim -> bins
         double[][][] bcells = b.getResults();
 
@@ -41,7 +41,7 @@ public class Measures {
         return max;
     }
 
-    public static double canman(ColorHistogram a, ColorHistogram b, boolean iscanberra){
+    public static double canman(FeatureHistogram a, FeatureHistogram b, boolean iscanberra){
         //Analogous to Chebyshev. We differ between Canberra and Manhattan Distance.
         //Canberra gets an additional weighting. c.f. inner functions
         double[][][] acells = a.getResults();
@@ -87,7 +87,7 @@ public class Measures {
         return result;
     }
 
-    public static double euclid(ColorHistogram a, ColorHistogram b, int mode){
+    public static double euclid(FeatureHistogram a, FeatureHistogram b, int mode){
         //analogous to Chebyshev.
         //We have included the experimental mode-feature, where we could
         //vary the aggregation method over channels and cells.
@@ -132,7 +132,7 @@ public class Measures {
         return Math.sqrt(result);
     }
 
-    public static double quadraticform(ColorHistogram a, ColorHistogram b, QFWrapper wrapper){
+    public static double quadraticform(FeatureHistogram a, FeatureHistogram b, QFWrapper wrapper){
         double[][][] acells = a.getResults();
         double[][][] bcells = b.getResults();
 
@@ -150,7 +150,7 @@ public class Measures {
         return DoubleStream.of(cellresults).average().getAsDouble();  //average over cells and channels
     }
 
-    public static double emd(ColorHistogram a, ColorHistogram b){
+    public static double emd(FeatureHistogram a, FeatureHistogram b){
         //analogous to Chebyshev.
         double[][][] acells = a.getResults();
         double[][][] bcells = b.getResults();

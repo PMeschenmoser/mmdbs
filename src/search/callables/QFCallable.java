@@ -1,6 +1,6 @@
 package search.callables;
 
-import feature.ColorHistogram;
+import feature.*;
 import search.Measures;
 import search.QFWrapper;
 import search.ScoreItem;
@@ -18,13 +18,13 @@ import java.util.concurrent.Callable;
  */
 public class QFCallable implements Callable
 {
-    private ColorHistogram query;
-    private ColorHistogram[] candidates;
+    private FeatureHistogram query;
+    private FeatureHistogram[] candidates;
     private int start;
     private int end;
     private QFWrapper qf;
 
-    public QFCallable(ColorHistogram query, ColorHistogram[] candidates, int start, int end, QFWrapper qf){
+    public QFCallable(FeatureHistogram query, FeatureHistogram[] candidates, int start, int end, QFWrapper qf){
         this.query = query;
         this.candidates = candidates;
         this.start = start;

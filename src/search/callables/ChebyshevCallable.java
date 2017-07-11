@@ -1,6 +1,6 @@
 package search.callables;
 
-import feature.ColorHistogram;
+import feature.*;
 import search.Measures;
 import search.ScoreItem;
 
@@ -17,12 +17,12 @@ import java.util.concurrent.Callable;
  */
 
 public class ChebyshevCallable implements Callable {
-    private ColorHistogram query;
-    private ColorHistogram[] candidates;
+    private FeatureHistogram query;
+    private FeatureHistogram[] candidates;
     private int start;
     private int end;
 
-    public ChebyshevCallable(ColorHistogram query, ColorHistogram[] candidates, int start, int end){
+    public ChebyshevCallable(FeatureHistogram query, FeatureHistogram[] candidates, int start, int end){
         this.query = query;
         this.candidates = candidates;
         this.start = start;

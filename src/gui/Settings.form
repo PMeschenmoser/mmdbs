@@ -26,6 +26,7 @@
           <model>
             <item value="RGB Histogram"/>
             <item value="Edge Histogram"/>
+            <item value="Tamura-like Descriptor"/>
           </model>
         </properties>
       </component>

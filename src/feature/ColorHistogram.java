@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Authors: P. Meschenmoser, C. Gutknecht
  */
-public class ColorHistogram implements Serializable{
+public class ColorHistogram implements Serializable, FeatureHistogram {
     private File input;
     private int cellcount; //per axis
     private int bincount; //per channel
@@ -107,5 +107,6 @@ public class ColorHistogram implements Serializable{
     public int getCellCount(){
         return cellcount;
     }
+    public int getType() {return 0; }// 0 for ColorHistogram, 1 for EdgeHistogram, 2 for TamuraLikeDescriptor}
 
 }

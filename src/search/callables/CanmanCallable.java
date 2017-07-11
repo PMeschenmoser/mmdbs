@@ -1,6 +1,6 @@
 package search.callables;
 
-import feature.ColorHistogram;
+import feature.*;
 import search.Measures;
 import search.ScoreItem;
 
@@ -13,13 +13,13 @@ import java.util.concurrent.Callable;
  */
 public class CanmanCallable implements Callable {
 
-    private ColorHistogram query;
-    private ColorHistogram[] candidates;
+    private FeatureHistogram query;
+    private FeatureHistogram[] candidates;
     private int start;
     private int end;
     private boolean canberra;
 
-    public CanmanCallable(ColorHistogram query, ColorHistogram[] candidates, int start, int end, boolean canberra){
+    public CanmanCallable(FeatureHistogram query, FeatureHistogram[] candidates, int start, int end, boolean canberra){
         //assign class variables, so that these values are accessible in call().
         this.query = query;
         this.candidates = candidates;
