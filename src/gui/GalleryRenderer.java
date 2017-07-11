@@ -40,7 +40,6 @@ public class GalleryRenderer extends DefaultListCellRenderer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

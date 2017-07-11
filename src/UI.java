@@ -183,6 +183,9 @@ public class UI {
         File[] files = settings.getSearchFiles(); //from search path + subfolders
         int cellcount = settings.getCellCount(); // per axis
         int bincount = settings.getBinCount();
+        if (settings.getDescriptorIndex() > 0) {
+            bincount =4;
+        }
 
 
         /*
@@ -207,10 +210,11 @@ public class UI {
         FeatureHistogram[] candidates = new FeatureHistogram[files.length];
         for (int i= 0; i<files.length;i++){
             FeatureHistogram c;
+
             String ser = Serializer.getPathSerialized(files[i], type, cellcount, bincount);
             if (ser.length() > 0){
                 //this color histogram was already serialized.
-                System.out.println("found serialized version: " + ser);
+                //System.out.println("found serialized version: " + ser);
                 c = Serializer.deserialize(ser);
                 if (c == null){
                     //deserializing failed, compute histogram again...

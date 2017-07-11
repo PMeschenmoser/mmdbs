@@ -24,12 +24,14 @@ public class Serializer  {
             return;
         }
         //create .ser file
+
         path += "/" + c.getType() + "-" + c.getCellCount() + "-" + c.getBinCount()+"-";
         path += c.getFile().getName().replaceFirst("[.][^.]+$", "") + ".ser";
         try {
             //serialize ColorHistogram into the file
             FileOutputStream fileOut = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            System.out.println(path);
             out.writeObject(c);
             out.close();
             fileOut.close();
@@ -71,7 +73,10 @@ public class Serializer  {
         String path = "ser/" + generateFolderName(f);
         path += "/" + type + "-" + cellcount + "-" + bincount +"-";
         path += f.getName().replaceFirst("[.][^.]+$", "") + ".ser";
-        if (new File(path).exists())return path;
+        if (new File(path).exists()){
+
+            return path;
+        }
         return "";
     }
 }

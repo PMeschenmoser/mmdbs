@@ -28,12 +28,14 @@ public class Evaluator {
         //FULLY AUTOMATED, folder-based evaluation system
         File relev_folder =  in.getFile().getParentFile();
         double relev_all = relev_folder.listFiles().length; //double to avoid later rounding problems...
+        System.out.println("relev all" + relev_all);
+
         double relev_count = 0;
         pr = new double[score.size()][2];
         f = new double[score.size()];
         int count = 0;
         for (ScoreItem item : score){
-            if (item.getFile().getParentFile().equals(relev_folder)){
+            if (item.getFile().getParentFile().getAbsolutePath().equals(relev_folder.getAbsolutePath())){
                 /*
                     A score item is relevant, iff its file's directory equals to the
                     search file's directory:
