@@ -28,7 +28,6 @@ public class Evaluator {
         //FULLY AUTOMATED, folder-based evaluation system
         File relev_folder =  in.getFile().getParentFile();
         double relev_all = relev_folder.listFiles().length; //double to avoid later rounding problems...
-        System.out.println("relev all" + relev_all);
 
         double relev_count = 0;
         pr = new double[score.size()][2];

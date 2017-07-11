@@ -6,12 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81bd5d18-0a19-4c13-bbff-11513f307001" name="Default" comment="build&#10;">
+    <list default="true" id="81bd5d18-0a19-4c13-bbff-11513f307001" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI.java" afterPath="$PROJECT_DIR$/src/UI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eval/Evaluator.java" afterPath="$PROJECT_DIR$/src/eval/Evaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/GalleryRenderer.java" afterPath="$PROJECT_DIR$/src/gui/GalleryRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/misc/Serializer.java" afterPath="$PROJECT_DIR$/src/misc/Serializer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -31,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="226" column="20" selection-start-line="226" selection-start-column="20" selection-end-line="226" selection-end-column="20" />
+            <state relative-caret-position="400">
+              <caret line="186" column="24" selection-start-line="186" selection-start-column="24" selection-end-line="186" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2990#3182#0" expanded="true" />
@@ -109,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Evaluator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Evaluator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eval/Evaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+            <state relative-caret-position="111">
+              <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -220,9 +217,9 @@
         <option value="$PROJECT_DIR$/src/feature/ColorHistogram.java" />
         <option value="$PROJECT_DIR$/src/gui/GalleryRenderer.java" />
         <option value="$PROJECT_DIR$/src/search/Measures.java" />
-        <option value="$PROJECT_DIR$/src/eval/Evaluator.java" />
         <option value="$PROJECT_DIR$/src/misc/Serializer.java" />
         <option value="$PROJECT_DIR$/src/UI.java" />
+        <option value="$PROJECT_DIR$/src/eval/Evaluator.java" />
       </list>
     </option>
   </component>
@@ -512,6 +509,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="eval" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmdbs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmdbs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1165,7 +1176,7 @@
       <workItem from="1499421403565" duration="11275000" />
       <workItem from="1499445823243" duration="28073000" />
       <workItem from="1499680400972" duration="13309000" />
-      <workItem from="1499713973255" duration="10809000" />
+      <workItem from="1499713973255" duration="11412000" />
     </task>
     <task id="LOCAL-00001" summary="color lookup">
       <created>1498655314457</created>
@@ -1258,11 +1269,18 @@
       <option name="project" value="LOCAL" />
       <updated>1499714513014</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="serialize fix">
+      <created>1499771231915</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1499771231915</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113197000" />
+    <option name="totallyTimeSpent" value="113800000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -1323,7 +1341,8 @@
     <MESSAGE value="qf fix" />
     <MESSAGE value="code comments" />
     <MESSAGE value="build&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="build&#10;" />
+    <MESSAGE value="serialize fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="serialize fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1609,14 +1628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eval/Evaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/feature/EdgeHistogram.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1635,8 +1646,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="226" column="20" selection-start-line="226" selection-start-column="20" selection-end-line="226" selection-end-column="20" />
+        <state relative-caret-position="400">
+          <caret line="186" column="24" selection-start-line="186" selection-start-column="24" selection-end-line="186" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2990#3182#0" expanded="true" />
@@ -1644,6 +1655,14 @@
             <element signature="e#3296#3479#0" expanded="true" />
             <element signature="e#3478#3479#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eval/Evaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
