@@ -23,7 +23,7 @@ public class Measures {
         for (int cell = 0; cell < acells.length; cell++) { //for each cell
             for (int channel = 0; channel < acells[cell].length; channel++) { //for each channel (-> 3)
                 //populate result array
-                cellresults[cell*acells.length+channel] = chebyshev_inner(acells[cell][channel], bcells[cell][channel]);
+                cellresults[cell*(acells[cell].length)+channel] = chebyshev_inner(acells[cell][channel], bcells[cell][channel]);
             }
         }
         DoubleStream s = DoubleStream.of(cellresults); //build a stream and average over cells/channels
@@ -51,13 +51,13 @@ public class Measures {
         if (iscanberra){
             for (int cell = 0; cell<acells.length; cell++){
                 for (int channel = 0; channel < acells[cell].length; channel++){
-                    cellresults[cell*acells.length+channel] = canberra_inner(acells[cell][channel], bcells[cell][channel]);
+                    cellresults[cell*(acells[cell].length)+channel] = canberra_inner(acells[cell][channel], bcells[cell][channel]);
                 }
             }
         } else { //manhattan
             for (int cell = 0; cell<acells.length; cell++){
                 for (int channel = 0; channel < acells[cell].length; channel++){
-                    cellresults[cell*acells.length+channel] = manhattan_inner(acells[cell][channel], bcells[cell][channel]);
+                    cellresults[cell*(acells[cell].length)+channel] = manhattan_inner(acells[cell][channel], bcells[cell][channel]);
                 }
             }
         }
@@ -98,10 +98,11 @@ public class Measures {
         for (int cell = 0; cell<acells.length; cell++){
             for (int channel = 0; channel < acells[cell].length; channel++){
                 //euclidean distance, using all dimension (-> -1)
-                cellresults[cell*acells.length+channel] = euclid_inner(acells[cell][channel], bcells[cell][channel], -1);
+                cellresults[cell*(acells[cell].length)+channel] = euclid_inner(acells[cell][channel], bcells[cell][channel], -1);
             }
         }
         DoubleStream s = DoubleStream.of(cellresults);
+
         if (mode == 0){
             return s.average().getAsDouble();
         } else {
@@ -143,7 +144,7 @@ public class Measures {
                 double[] pV = u.operate(acells[cell][channel]); //pV
                 double[] qV = u.operate(bcells[cell][channel]); //qV
                 //compute weighted euclidean distance:
-                cellresults[cell*acells.length+channel] = weighted_euclid_inner(pV, qV, weights, wrapper.getMaxEigen());
+                cellresults[cell*(acells[cell].length)+channel] = weighted_euclid_inner(pV, qV, weights, wrapper.getMaxEigen());
             }
         }
         return DoubleStream.of(cellresults).average().getAsDouble();  //average over cells and channels
@@ -157,7 +158,7 @@ public class Measures {
         double[] cellresults = new double[acells.length*3];
         for (int cell = 0; cell < acells.length; cell++) {
             for (int channel = 0; channel < acells[cell].length; channel++) {
-                cellresults[cell*acells.length+channel] = emd_inner(acells[cell][channel], bcells[cell][channel]);
+                cellresults[cell*(acells[cell].length)+channel] = emd_inner(acells[cell][channel], bcells[cell][channel]);
             }
         }
         DoubleStream s = DoubleStream.of(cellresults);

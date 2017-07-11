@@ -69,7 +69,7 @@ public class UI {
         FileFilter imageFilter = new FileNameExtensionFilter(
                 "Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
-        fileChooser.setCurrentDirectory(new File("data/"));
+       // fileChooser.setCurrentDirectory(new File("data/"));
 
         //set left and right default images
         setImageCanvas(new File("gui/input.png"), true, false);
